@@ -1,0 +1,6 @@
+
+
+void userInterface(){
+    printf("Bonjour !\n");
+    
+}

@@ -4,16 +4,14 @@
 #include "config/struct.c"
 #include "components/create.c"
 #include "components/get.c"
+#include "utils/windows_user.c"
 
 
 
 int main(void){
-    Shape *rectangle;
-    rectangle = createRectangle();
-    getRectangle(rectangle);
-    freeRectangle(rectangle);
+    userInterface();
     return EXIT_SUCCESS;
-    
+
 }
 
 

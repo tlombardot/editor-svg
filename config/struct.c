@@ -1,3 +1,6 @@
+
+
+
 typedef enum{
     CIRCLE,
     RECTANGLE,
@@ -52,7 +55,7 @@ typedef struct
 typedef struct 
 {
     ShapeType type;
-}Ways;
+}Path;
 
 typedef struct 
 {
@@ -78,6 +81,6 @@ typedef
         Polygone poly;
         Str_line strline;
         Group grp;
-        Ways ways;
+        Path path;
         
     }Shape;

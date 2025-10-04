@@ -43,7 +43,7 @@ Shape* createEllipse(){
     scanf("%d",&new_ellipse->elli.cy);
     printf("What is your range ?\n");
     scanf("%d",&new_ellipse->elli.rx);
-    new_ellipse->rect.type = ELLIPSE;
+    new_ellipse->elli.type = ELLIPSE;
     return new_ellipse;
 }
 
@@ -54,11 +54,11 @@ void freeEllipse(Shape* ellipse){
 
 Shape* createSquare(){
     Shape *new_square = malloc(sizeof(Shape));
-    printf("What is your x coordinates ? (CENTER)\n");
+    printf("What is your x coordinates ?\n");
     scanf("%d",&new_square->squ.x);
-    printf("What is your y coordinates ? (CENTER)\n");
+    printf("What is your y coordinates ?\n");
     scanf("%d",&new_square->squ.y);
-    printf("What is your range ?\n");
+    printf("What is your width ?\n");
     scanf("%d",&new_square->squ.wh);
     new_square->squ.type = SQUARE;
     return new_square;
@@ -66,4 +66,23 @@ Shape* createSquare(){
 
 void freeSquare(Shape* square){
     free(square);
+}
+
+
+Shape* createLine(){
+    Shape *new_line = malloc(sizeof(Shape));
+    printf("What is your x1 coordinate ?\n");
+    scanf("%d",&new_line->line.x1);
+    printf("What is your y1 coordinate ?\n");
+    scanf("%d",&new_line->line.y1);
+    printf("What is your x2 coordinate ?\n");
+    scanf("%d",&new_line->line.x2);
+    printf("What is your y2 coordinate ?\n");
+    scanf("%d",&new_line->line.y2);
+    new_line->line.type = LINE;
+    return new_line;
+}
+
+void freeLine(Shape* line){
+    free(line);
 }

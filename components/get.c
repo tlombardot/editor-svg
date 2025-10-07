@@ -1,45 +1,96 @@
 
-
-#ifndef CREATE_H
-
-#include <stdio.h>
-#include <stdbool.h>
 #include "../config/struct.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#endif
-#ifndef GET_H
-#define GET_H
-void getRectangle(Shape *rectangle)
-{
-    printf("/+--| Rectangle |--+/\n");
-    printf("Position (x : %d, y : %d)\n", rectangle->rect.x, rectangle->rect.y);
-    printf("Width : %d \n", rectangle->rect.width);
-    printf("Height : %d \n", rectangle->rect.height);
-}
-
-void getSquare(Shape *square)
-{
-    printf("/+--| Square |--+/\n");
-    printf("Position (x : %d, y : %d)\n", square->squ.x, square->squ.y);
-    printf("Weight & Height : %d \n", square->squ.wh);
+void getRectangle(Data *rectangle) {
+  printf("/+--| Rectangle |--+/\n");
+  printf("Position (x : %d, y : %d)\n", rectangle->shape->rect.x,
+         rectangle->shape->rect.y);
+  printf("Width : %d \n", rectangle->shape->rect.width);
+  printf("Height : %d \n", rectangle->shape->rect.height);
 }
 
-void getEllipse(Shape *ellipse)
-{
-    printf("/+--| Ellipse |--+/\n");
-    printf("Position (x : %d, y : %d)\n", ellipse->elli.cx, ellipse->elli.cy);
-    printf("Rayon : %d (x) & Rayon : %d (y)\n", ellipse->elli.rx, ellipse->elli.ry);
+void getSquare(Data *square) {
+  printf("/+--| Square |--+/\n");
+  printf("Position (x : %d, y : %d)\n", square->shape->squ.x,
+         square->shape->squ.y);
+  printf("Weight & Height : %d \n", square->shape->squ.wh);
 }
 
-void getCircle(Shape *circle)
-{
-    printf("/+--| Circle |--+/\n");
-    printf("Position (x : %d, y : %d)\n", circle->circle.cx, circle->circle.cy);
-    printf("Rayon : %d \n", circle->circle.r);
+void getEllipse(Data *ellipse) {
+  printf("/+--| Ellipse |--+/\n");
+  printf("Position (x : %d, y : %d)\n", ellipse->shape->elli.cx,
+         ellipse->shape->elli.cy);
+  printf("Rayon : %d (x) & Rayon : %d (y)\n", ellipse->shape->elli.rx,
+         ellipse->shape->elli.ry);
 }
-int getInt(void){
-    int variable;
-    scanf("%d",&variable);
-    return variable;
+
+void getCircle(Data *circle) {
+  printf("/+--| Circle |--+/\n");
+  printf("Position (x : %d, y : %d)\n", circle->shape->circle.cx,
+         circle->shape->circle.cy);
+  printf("Rayon : %d \n", circle->shape->circle.r);
 }
-#endif
+
+void getShape(ListNodePoly *poly, ShapeType type){
+    switch (type) {
+        case POLYGONE:
+                printf("/+--| Polygon |--+/\n");
+            break;
+        case STRLINE :
+            printf("/+--| Polyline |--+\n");
+        default:
+            break;
+    }
+    ListNodePoly *current = poly;
+    while (current != NULL){
+        printf("Position (x : %d, y : %d)\n", current->value->x, current->value->y);
+        current = current->next;
+    }
+}
+int getInt(void) {
+  int variable;
+  bool isFinish = false;
+  while (isFinish != true) {
+    scanf("%d", &variable);
+    if (variable >= 1) {
+      isFinish = true;
+    } else {
+      printf("Valeur Inconnu ! \nRecommencez !\n");
+    }
+  }
+  return variable;
+}
+
+int getXCoord() {
+  int variable;
+  printf("What is your x coordinates ?\n");
+  variable = getInt();
+  return variable;
+}
+int getYCoord() {
+  int variable;
+  printf("What is your y coordinates ?\n");
+  variable = getInt();
+  return variable;
+}
+int getWIDTHCoord() {
+  int variable;
+  printf("What is your width ?\n");
+  variable = getInt();
+  return variable;
+}
+int getHEIGHTCoord() {
+  int variable;
+  printf("What is your height ?\n");
+  variable = getInt();
+  return variable;
+}
+int getRange() {
+  int variable;
+  printf("What is your range ?\n");
+  variable = getInt();
+  return variable;
+}

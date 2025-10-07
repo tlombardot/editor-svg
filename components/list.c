@@ -1,13 +1,11 @@
 
 
-#ifndef CREATE_H
-
+#include "get.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include "../config/struct.h"
 
-#endif
 
 /*
 Créer une liste vide et initialisé
@@ -16,7 +14,8 @@ List *createList(void)
 {
     List *ListShape = malloc(sizeof(List));
     ListShape->form = malloc(sizeof(ListNode));
-    ListShape->form->shape = malloc(sizeof(Shape));
+    ListShape->form->data = malloc(sizeof(Data));
+    ListShape->form->data->shape = malloc(sizeof(Shape));
     ListShape->lenght = 0;
     return ListShape;
 }
@@ -24,11 +23,11 @@ List *createList(void)
 /*
 Ajout n'importe quel forme dans la liste
 */
-List *appendList(List *list, Shape *shape)
+List *appendList(List *list, Data *data)
 {
     if (list->lenght == 0)
     {
-        list->form->shape = shape;
+        list->form->data = data;
         list->lenght++;
         return list;
     }
@@ -38,7 +37,8 @@ List *appendList(List *list, Shape *shape)
         current = current->next;
     }
     ListNode *newnode = malloc(sizeof(ListNode));
-    newnode->shape = shape;
+    newnode->data = malloc(sizeof(Data));
+    newnode->data = data;
     newnode->previous = current;
     current->next = newnode;
     list->lenght++;
@@ -54,42 +54,53 @@ void getList(List *list)
     ListNode *current = list->form;
     for (int i = 0; i < list->lenght; i++)
     {
-    switch (current->shape->type)
+    switch (list->form->data->type)
     {
     case RECTANGLE:
-        printf("/+--| Rectangle |--+/\n");
-        printf("Position (x : %d, y : %d)\n", current->shape->rect.x, current->shape->rect.y);
-        printf("Width : %d \n", current->shape->rect.width);
-        printf("Height : %d \n", current->shape->rect.height);
-        current = current->next;
+        getRectangle(current->data);
         break;
     case SQUARE:
-        printf("/+--| Square |--+/\n");
-        printf("Position (x : %d, y : %d)\n", current->shape->squ.x, current->shape->squ.y);
-        printf("Weight & Height : %d \n", current->shape->squ.wh);
+        getSquare(current->data);
         break;
     case LINE:
 
         break;
     case CIRCLE:
-        printf("/+--| Circle |--+/\n");
-        printf("Position (x : %d, y : %d)\n", current->shape->circle.cx, current->shape->circle.cy);
-        printf("Rayon : %d \n", current->shape->circle.r);
+        getCircle(current->data);
         break;
     case ELLIPSE:
-        printf("/+--| Ellipse |--+/\n");
-        printf("Position (x : %d, y : %d)\n", current->shape->elli.cx, current->shape->elli.cy);
-        printf("Rayon : %d (x) & Rayon : %d (y)\n", current->shape->elli.rx, current->shape->elli.ry);
+        getEllipse(current->data);
         break;
     case POLYGONE:
-
+        ListNodePoly *currentPoly = current->data->shape->poly->list;
+        while (currentPoly != NULL) {
+            if (currentPoly->value == NULL) {
+                fprintf(stderr, "Value is NULL\n");
+            }else{
+                getShape(currentPoly,current->data->type);
+            }
+        currentPoly = currentPoly->next;
+        }
         break;
-
+    case STRLINE:
+        ListNodePoly *currentLineStr = current->data->shape->poly->list;
+        while (currentLineStr != NULL) {
+            if (currentLineStr->value == NULL) {
+                fprintf(stderr, "Value is NULL\n");
+            }else{
+                getShape(currentLineStr,current->data->type);
+            }
+        currentPoly = currentPoly->next;
+        }
+        break;
     case PATH:
 
+        break;
+    case GROUP :
         break;
     default:
         break;
     }
+    current = current->next;
     }
 }

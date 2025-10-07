@@ -7,5 +7,5 @@
 
 
 List *createList(void);
-List *appendList(List *list, Shape *shape);
+List *appendList(List *list, Data *data);
 void getList(List * list);

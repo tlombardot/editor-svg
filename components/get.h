@@ -1,8 +1,17 @@
-
+#ifndef GET_H
+#define GET_H
 #include "../config/struct.h"
 
-void getRectangle(Shape *rectangle);
-void getSquare(Shape *square);
-void getEllipse(Shape *ellipse);
-void getCircle(Shape *circle);
+void getRectangle(Data *rectangle);
+void getSquare(Data *square);
+void getEllipse(Data *ellipse);
+void getCircle(Data *circle);
 int getInt();
+int getXCoord();
+int getYCoord();
+int getWIDTHCoord();
+int getHEIGHTCoord();
+int getRange();
+void getShape(ListNodePoly *poly, ShapeType type);
+
+#endif

@@ -48,6 +48,8 @@ typedef struct
 
 typedef struct
 {
+    int x;
+    int y;
 
 } Polygone;
 
@@ -66,6 +68,19 @@ typedef struct
 
 } Str_line;
 
+typedef struct ListNodePoly
+{
+    Polygone *value;
+    struct ListNodePoly *next;
+    struct ListNodePoly *previous;
+}ListNodePoly;
+
+typedef struct ListPoly
+{
+    ListNodePoly *list;
+    int lenght;
+}ListPoly;
+
 typedef union main
 {
     Rectangle rect;
@@ -73,17 +88,23 @@ typedef union main
     Line line;
     Square squ;
     Ellipse elli;
-    Polygone poly;
+    ListPoly *poly;
     Str_line strline;
     Group grp;
     Path path;
-    ShapeType type;
+
 
 } Shape;
 
+typedef struct {
+    ShapeType type;
+    Shape *shape;
+}Data;
+
+
 typedef struct ListNode
 {
-    Shape *shape;
+    Data *data;
     struct ListNode *next;
     struct ListNode *previous;
 
@@ -96,5 +117,6 @@ typedef struct
     int lenght;
 
 } List;
+
 
 #endif

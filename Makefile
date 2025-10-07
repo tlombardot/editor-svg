@@ -6,6 +6,7 @@ SRC     := main.c \
 			components/get.c \
 			components/list.c \
 			utils/windows_user.c \
+			config/set.c \
 
 OBJ     := $(SRC:.c=.o)
 

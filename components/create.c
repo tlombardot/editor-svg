@@ -1,106 +1,103 @@
 
-
-#ifndef CREATE_H
-
+#include "../components/get.h"
+#include "../config/struct.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include "../config/struct.h"
+#include "../config/set.h"
 
-#endif
-#ifndef CREATE_C
-#define CREATE_C
-Shape *createRectangle()
-{
-    Shape *new_rectangle = malloc(sizeof(Shape));
-    printf("What is your x coordinates ? (TOP LEFT)\n");
-    scanf("%d", &new_rectangle->rect.x);
-    printf("What is your y coordinates ? (TOP LEFT)\n");
-    scanf("%d", &new_rectangle->rect.y);
-    printf("What is your width (RIGHT)? (NEGATIVE OPPOSITE WAYS)\n");
-    scanf("%d", &new_rectangle->rect.width);
-    printf("What is your height (DOWN)? (NEGATIVE OPPOSITE WAYS)\n");
-    scanf("%d", &new_rectangle->rect.height);
-    new_rectangle->type = RECTANGLE;
-    return new_rectangle;
+Data *createRectangle() {
+  Data *new_rectangle = setMalloc();
+  new_rectangle->shape->rect.x = getXCoord();
+  new_rectangle->shape->rect.y = getYCoord();
+  new_rectangle->shape->rect.width = getWIDTHCoord();
+  new_rectangle->shape->rect.height = getHEIGHTCoord();
+  new_rectangle->type = RECTANGLE;
+  return new_rectangle;
 }
 
-void freeRectangle(Shape *rectangle)
-{
-    free(rectangle);
+void freeRectangle(Data *rectangle) { free(rectangle); }
+
+Data *createCircle() {
+  Data *new_circle = setMalloc();
+  new_circle->shape->circle.cx = getXCoord();
+  new_circle->shape->circle.cx = getYCoord();
+  new_circle->shape->circle.r = getRange();
+  new_circle->type = CIRCLE;
+  return new_circle;
 }
 
-Shape *createCircle()
-{
-    Shape *new_circle = malloc(sizeof(Shape));
-    printf("What is your x coordinates ? (CENTER)\n");
-    scanf("%d", &new_circle->circle.cx);
-    printf("What is your y coordinates ? (CENTER)\n");
-    scanf("%d", &new_circle->circle.cy);
-    printf("What is your range ?\n");
-    scanf("%d", &new_circle->circle.r);
-    new_circle->type = CIRCLE;
-    return new_circle;
+void freeCicle(Data *circle) { free(circle); }
+
+Data *createEllipse() {
+  Data *new_ellipse = setMalloc();
+  new_ellipse->shape->elli.cx = getXCoord();
+  new_ellipse->shape->elli.cy = getYCoord();
+  new_ellipse->shape->elli.rx = getRange();
+  new_ellipse->shape->elli.ry = getRange();
+  new_ellipse->type = ELLIPSE;
+  return new_ellipse;
 }
 
-void freeCicle(Shape *circle)
-{
-    free(circle);
+void freeEllipse(Data *ellipse) { free(ellipse); }
+
+Data *createSquare() {
+  Data *new_square = setMalloc();
+  new_square->shape->squ.x = getXCoord();
+  new_square->shape->squ.y = getYCoord();
+  new_square->shape->squ.wh = getWIDTHCoord();
+  new_square->type = SQUARE;
+  return new_square;
 }
 
-Shape *createEllipse()
-{
-    Shape *new_ellipse = malloc(sizeof(Shape));
-    printf("What is your x coordinates ? (CENTER)\n");
-    scanf("%d", &new_ellipse->elli.cx);
-    printf("What is your y coordinates ? (CENTER)\n");
-    scanf("%d", &new_ellipse->elli.cy);
-    printf("What is your range ?\n");
-    scanf("%d", &new_ellipse->elli.rx);
-    new_ellipse->type = ELLIPSE;
-    return new_ellipse;
+void freeSquare(Data *square) { free(square); }
+
+Data *createLine() {
+  Data *new_line = setMalloc();
+  new_line->shape->line.x1 = getXCoord();
+  new_line->shape->line.y1 = getYCoord();
+  new_line->shape->line.x2 = getXCoord();
+  new_line->shape->line.y2 = getYCoord();
+  new_line->type = LINE;
+  return new_line;
 }
 
-void freeEllipse(Shape *ellipse)
-{
-    free(ellipse);
+void freeLine(Data *line) { free(line); }
+
+Polygone *createPolygon() {
+  Polygone *poly = malloc(sizeof(Polygone));
+  poly->x = getXCoord();
+  poly->y = getYCoord();
+  return poly;
 }
 
-Shape *createSquare()
-{
-    Shape *new_square = malloc(sizeof(Shape));
-    printf("What is your x coordinates ?\n");
-    scanf("%d", &new_square->squ.x);
-    printf("What is your y coordinates ?\n");
-    scanf("%d", &new_square->squ.y);
-    printf("What is your width ?\n");
-    scanf("%d", &new_square->squ.wh);
-    new_square->type = SQUARE;
-    return new_square;
+Data *createShapeless() {
+  Data *new_poly = setMalloc();
+  new_poly->shape->poly = malloc(sizeof(ListPoly));
+  new_poly->shape->poly->list = malloc(sizeof(ListNodePoly));
+  new_poly->shape->poly->list->value = malloc(sizeof(Polygone));
+  new_poly->shape->poly->list->next = NULL;
+  new_poly->shape->poly->list->previous = NULL;
+  new_poly->shape->poly->lenght = 0;
+  ListNodePoly *current = new_poly->shape->poly->list;
+  bool isFinish = false;
+  new_poly->shape->poly->list->value = createPolygon();
+  new_poly->shape->poly->lenght++;
+  while (isFinish != true) {
+    printf("Is the end ?\n");
+    printf("Write 1 to stop\n");
+    if (getInt() == 1) {
+      isFinish = true;
+    } else {
+      ListNodePoly *newNode = malloc(sizeof(ListNodePoly));
+      newNode->value = createPolygon();
+      newNode->next = NULL;
+      newNode->previous = current;
+      current->next = newNode;
+      current = current->next;
+      new_poly->shape->poly->lenght++;
+    }
+  }
+  new_poly->type = POLYGONE;
+  return new_poly;
 }
-
-void freeSquare(Shape *square)
-{
-    free(square);
-}
-
-Shape *createLine()
-{
-    Shape *new_line = malloc(sizeof(Shape));
-    printf("What is your x1 coordinate ?\n");
-    scanf("%d", &new_line->line.x1);
-    printf("What is your y1 coordinate ?\n");
-    scanf("%d", &new_line->line.y1);
-    printf("What is your x2 coordinate ?\n");
-    scanf("%d", &new_line->line.x2);
-    printf("What is your y2 coordinate ?\n");
-    scanf("%d", &new_line->line.y2);
-    new_line->type= LINE;
-    return new_line;
-}
-
-void freeLine(Shape *line)
-{
-    free(line);
-}
-#endif

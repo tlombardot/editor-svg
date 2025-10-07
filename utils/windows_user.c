@@ -24,9 +24,9 @@ void userInterface()
 {
     List *list = createList();
     int answer = getAnswer();
+    printf("Welcome !\n");
     while (answer != 6)
     {
-        printf("Welcome !\n");
         switch (answer)
         {
         case 1:
@@ -35,30 +35,34 @@ void userInterface()
             switch (answer)
             {
             case 1:
-                Shape *rectangle = createRectangle();
+                Data *rectangle = createRectangle();
                 list = appendList(list, rectangle);
                 getList(list);
                 break;
             case 2:
-                Shape *square = createSquare();
+                Data *square = createSquare();
                 list = appendList(list, square);
                 getList(list);
                 break;
             case 3:
-                Shape *line = createLine();
+                Data *line = createLine();
                 list = appendList(list, line);
                 getList(list);
                 break;
             case 4:
-                Shape *circle = createCircle();
+                Data *circle = createCircle();
                 list = appendList(list, circle);
                 getList(list);
                 break;
             case 5:
-                Shape *ellipse = createEllipse();
+                Data *ellipse = createEllipse();
                 list = appendList(list, ellipse);
                 getList(list);
                 break;
+            case 6:
+                Data *poly = createShapeless();
+                list = appendList(list, poly);
+                getList(list);
             default:
                 break;
             }

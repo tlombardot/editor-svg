@@ -1,26 +1,45 @@
 
 
-void getRectangle(Shape* rectangle){
+#ifndef CREATE_H
+
+#include <stdio.h>
+#include <stdbool.h>
+#include "../config/struct.h"
+
+#endif
+#ifndef GET_H
+#define GET_H
+void getRectangle(Shape *rectangle)
+{
     printf("/+--| Rectangle |--+/\n");
-    printf("Position (x : %d, y : %d)\n",rectangle->rect.x,rectangle->rect.y);
-    printf("Width : %d \n",rectangle->rect.width);
-    printf("Height : %d \n",rectangle->rect.height);
+    printf("Position (x : %d, y : %d)\n", rectangle->rect.x, rectangle->rect.y);
+    printf("Width : %d \n", rectangle->rect.width);
+    printf("Height : %d \n", rectangle->rect.height);
 }
 
-void getSquare(Shape* square){
+void getSquare(Shape *square)
+{
     printf("/+--| Square |--+/\n");
-    printf("Position (x : %d, y : %d)\n",square->squ.x,square->squ.y);
-    printf("Weight & Height : %d \n",square->squ.wh);
+    printf("Position (x : %d, y : %d)\n", square->squ.x, square->squ.y);
+    printf("Weight & Height : %d \n", square->squ.wh);
 }
 
-void getEllipse(Shape* ellipse){
+void getEllipse(Shape *ellipse)
+{
     printf("/+--| Ellipse |--+/\n");
-    printf("Position (x : %d, y : %d)\n",ellipse->elli.cx,ellipse->elli.cy);
-    printf("Rayon : %d (x) & Rayon : %d (y)\n",ellipse->elli.rx, ellipse->elli.ry);
+    printf("Position (x : %d, y : %d)\n", ellipse->elli.cx, ellipse->elli.cy);
+    printf("Rayon : %d (x) & Rayon : %d (y)\n", ellipse->elli.rx, ellipse->elli.ry);
 }
 
-void getCircle(Shape* circle){
+void getCircle(Shape *circle)
+{
     printf("/+--| Circle |--+/\n");
-    printf("Position (x : %d, y : %d)\n",circle->circle.cx,circle->circle.cy);
-    printf("Rayon : %d \n",circle->circle.r);
+    printf("Position (x : %d, y : %d)\n", circle->circle.cx, circle->circle.cy);
+    printf("Rayon : %d \n", circle->circle.r);
 }
+int getInt(void){
+    int variable;
+    scanf("%d",&variable);
+    return variable;
+}
+#endif

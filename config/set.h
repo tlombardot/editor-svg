@@ -7,5 +7,6 @@
 #include "struct.h"
 
 Data *setMalloc();
+Data *setMallocPoly();
 
 #endif

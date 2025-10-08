@@ -17,4 +17,6 @@ void freeSquare(Data *square);
 Data *createLine();
 void freeLine(Data *line);
 Data *createShapeless();
+Data *createPath();
+
 #endif

@@ -8,7 +8,7 @@
 
 
 /*
-Créer une liste vide et initialisé
+Create List NULL
 */
 List *createList(void)
 {
@@ -21,7 +21,7 @@ List *createList(void)
 }
 
 /*
-Ajout n'importe quel forme dans la liste
+Add a shape to the list
 */
 List *appendList(List *list, Data *data)
 {
@@ -37,16 +37,16 @@ List *appendList(List *list, Data *data)
         current = current->next;
     }
     ListNode *newnode = malloc(sizeof(ListNode));
-    newnode->data = malloc(sizeof(Data));
     newnode->data = data;
     newnode->previous = current;
     current->next = newnode;
+    newnode->next = NULL;
     list->lenght++;
 
     return list;
 }
 /*
-Récupère tout les infos de la liste
+Get all shape in the list
 */
 
 void getList(List *list)
@@ -54,7 +54,7 @@ void getList(List *list)
     ListNode *current = list->form;
     for (int i = 0; i < list->lenght; i++)
     {
-    switch (list->form->data->type)
+    switch (current->data->type)
     {
     case RECTANGLE:
         getRectangle(current->data);
@@ -73,25 +73,11 @@ void getList(List *list)
         break;
     case POLYGONE:
         ListNodePoly *currentPoly = current->data->shape->poly->list;
-        while (currentPoly != NULL) {
-            if (currentPoly->value == NULL) {
-                fprintf(stderr, "Value is NULL\n");
-            }else{
-                getShape(currentPoly,current->data->type);
-            }
-        currentPoly = currentPoly->next;
-        }
+        getShape(currentPoly,current->data->type);
         break;
     case STRLINE:
         ListNodePoly *currentLineStr = current->data->shape->poly->list;
-        while (currentLineStr != NULL) {
-            if (currentLineStr->value == NULL) {
-                fprintf(stderr, "Value is NULL\n");
-            }else{
-                getShape(currentLineStr,current->data->type);
-            }
-        currentPoly = currentPoly->next;
-        }
+        getShape(currentLineStr,current->data->type);
         break;
     case PATH:
 
@@ -99,6 +85,7 @@ void getList(List *list)
     case GROUP :
         break;
     default:
+        printf("Unknown shape type\n");
         break;
     }
     current = current->next;

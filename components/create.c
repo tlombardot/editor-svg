@@ -2,7 +2,6 @@
 #include "../components/get.h"
 #include "../config/struct.h"
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include "../config/set.h"
 
@@ -71,24 +70,17 @@ Polygone *createPolygon() {
   return poly;
 }
 
-Data *createShapeless() {
-  Data *new_poly = setMalloc();
-  new_poly->shape->poly = malloc(sizeof(ListPoly));
-  new_poly->shape->poly->list = malloc(sizeof(ListNodePoly));
-  new_poly->shape->poly->list->value = malloc(sizeof(Polygone));
-  new_poly->shape->poly->list->next = NULL;
-  new_poly->shape->poly->list->previous = NULL;
-  new_poly->shape->poly->lenght = 0;
+Data *createShapeless(ShapeType type) {
+  Data *new_poly = setMallocPoly();
   ListNodePoly *current = new_poly->shape->poly->list;
   bool isFinish = false;
   new_poly->shape->poly->list->value = createPolygon();
   new_poly->shape->poly->lenght++;
   while (isFinish != true) {
-    printf("Is the end ?\n");
-    printf("Write 1 to stop\n");
-    if (getInt() == 1) {
-      isFinish = true;
-    } else {
+      isFinish = getBool();
+      if (isFinish == true){
+          break;
+      }else {
       ListNodePoly *newNode = malloc(sizeof(ListNodePoly));
       newNode->value = createPolygon();
       newNode->next = NULL;
@@ -96,8 +88,13 @@ Data *createShapeless() {
       current->next = newNode;
       current = current->next;
       new_poly->shape->poly->lenght++;
-    }
+      }
   }
-  new_poly->type = POLYGONE;
+  new_poly->type = type;
   return new_poly;
+}
+
+Data *createPath(){
+    Data* new_path = malloc(sizeof(Data));
+    return new_path;
 }

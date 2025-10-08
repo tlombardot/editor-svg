@@ -4,6 +4,7 @@
 #include "../components/create.h"
 #include "../config/struct.h"
 #include "windows_user.h"
+#include "interface_path.h"
 
 int getAnswer()
 {
@@ -30,7 +31,7 @@ void userInterface()
         switch (answer)
         {
         case 1:
-            printf("What do you want to create ?\n 1 - Rectangle\n 2 - Square\n 3 - Line\n 4 - Circle\n 5 - Ellipse\nAnswer : ");
+            printf("What do you want to create ?\n 1 - Rectangle\n 2 - Square\n 3 - Line\n 4 - Circle\n 5 - Ellipse\n 6 - Polygone\n 7 - Polyline\n 8 - Path\n 9 - Group\n Answer : ");
             scanf("%d", &answer);
             switch (answer)
             {
@@ -60,9 +61,23 @@ void userInterface()
                 getList(list);
                 break;
             case 6:
-                Data *poly = createShapeless();
+                Data *poly = createShapeless(POLYGONE);
                 list = appendList(list, poly);
                 getList(list);
+                break;
+            case 7:
+                Data *strline = createShapeless(STRLINE);
+                list = appendList(list, strline);
+                getList(list);
+                break;
+            case 8:
+                Data *path = createPath();
+                path = interfacePath(path);
+                list = appendList(list, path);
+                getList(list);
+                break;
+            case 9:
+                break;
             default:
                 break;
             }

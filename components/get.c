@@ -26,6 +26,9 @@ void getEllipse(Data *ellipse) {
   printf("Rayon : %d (x) & Rayon : %d (y)\n", ellipse->shape->elli.rx,
          ellipse->shape->elli.ry);
 }
+/*
+ * Get value of Circle
+ */
 
 void getCircle(Data *circle) {
   printf("/+--| Circle |--+/\n");
@@ -33,6 +36,9 @@ void getCircle(Data *circle) {
          circle->shape->circle.cy);
   printf("Rayon : %d \n", circle->shape->circle.r);
 }
+/*
+ * Get value of Polygon or Polyline
+ */
 
 void getShape(ListNodePoly *poly, ShapeType type){
     switch (type) {
@@ -93,4 +99,30 @@ int getRange() {
   printf("What is your range ?\n");
   variable = getInt();
   return variable;
+}
+
+char getChar(){
+    char var;
+    scanf(" %c",&var );
+    return var;
+}
+
+bool getBool(){
+    char answer;
+    bool var = false;
+    while (var != true) {
+        printf("Do you want to continue ? y or n ?\n");
+        answer = getChar();
+        if (answer == 'y' || answer =='Y') {
+            var = true;
+            return false;
+        }else if (answer == 'n' || answer == 'N') {
+            var = true;
+            return true;
+        }else {
+            printf("Mauvaise valeur !\n");
+            var = false;
+        }
+    }
+    return var;
 }

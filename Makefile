@@ -7,6 +7,7 @@ SRC     := main.c \
 			components/list.c \
 			utils/windows_user.c \
 			config/set.c \
+			utils/interface_path.c \
 
 OBJ     := $(SRC:.c=.o)
 

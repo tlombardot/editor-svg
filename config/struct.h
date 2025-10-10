@@ -46,30 +46,64 @@ typedef struct
 
 } Ellipse;
 
+
 /*
  * Path Struct
  */
 
-typedef enum
+ typedef struct Move{
+     int x,y;
+ } Move;
+
+ typedef struct LinePath{
+     int x,y;
+ } LinePath;
+
+ typedef struct Horizontal{
+     int x;
+ } Horizontal;
+
+ typedef struct Vertical{
+     int y;
+ } Vertical;
+
+ typedef struct Curve{
+     int x1, y1, x2, y2, x3, y3;
+
+ } Curve;
+
+ typedef struct ShortCurve{
+     int x1, y1, x2, y2;
+
+ } ShortCurve;
+
+ typedef struct QuadraticCurve {
+     int x1, y1, x2, y2;
+
+ } QuadraticCurve;
+
+ typedef struct ShortQuadratic{
+     int x,y;
+
+ } ShortQuadratic;
+
+
+typedef union Order
 {
-    M,
-    L,
-    H,
-    V,
-    Z,
-    C,
-    Q,
-    S,
-    T,
-    A,
+    Move mv;
+    LinePath lp;
+    Horizontal h;
+    Vertical v;
+    Curve c;
+    ShortCurve sc;
+    QuadraticCurve qc;
+    ShortQuadratic sq;
 
-} PathOrder;
+} Order;
 
-typedef struct
-{
-    int x,y;
-    PathOrder order;
-
+typedef struct Path{
+    Order order;
+    char orderType;
 } Path;
 
 typedef struct ListNodePath
@@ -117,7 +151,7 @@ typedef struct ListPoly
  * Main Struct
  */
 
-typedef union main
+typedef union Shape
 {
     Rectangle rect;
     Circle circle;
@@ -132,7 +166,7 @@ typedef union main
 
 typedef struct {
     ShapeType type;
-    Shape *shape;
+    Shape shape;
 }Data;
 
 /*
@@ -140,7 +174,7 @@ typedef struct {
  */
 typedef struct
 {
-    Data *form;
+    Data form;
 } Group;
 
 

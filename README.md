@@ -1,2 +1,2 @@
-# editor-svg
+# Editor SVG
 Editor SVG

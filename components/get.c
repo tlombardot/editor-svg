@@ -1,4 +1,5 @@
 
+#include "get.h"
 #include "../config/struct.h"
 #include <stdbool.h>
 #include <stdio.h>
@@ -6,25 +7,25 @@
 
 void getRectangle(Data *rectangle) {
   printf("/+--| Rectangle |--+/\n");
-  printf("Position (x : %d, y : %d)\n", rectangle->shape->rect.x,
-         rectangle->shape->rect.y);
-  printf("Width : %d \n", rectangle->shape->rect.width);
-  printf("Height : %d \n", rectangle->shape->rect.height);
+  printf("Position (x : %d, y : %d)\n", rectangle->shape.rect.x,
+         rectangle->shape.rect.y);
+  printf("Width : %d \n", rectangle->shape.rect.width);
+  printf("Height : %d \n", rectangle->shape.rect.height);
 }
 
 void getSquare(Data *square) {
   printf("/+--| Square |--+/\n");
-  printf("Position (x : %d, y : %d)\n", square->shape->squ.x,
-         square->shape->squ.y);
-  printf("Weight & Height : %d \n", square->shape->squ.wh);
+  printf("Position (x : %d, y : %d)\n", square->shape.squ.x,
+         square->shape.squ.y);
+  printf("Weight & Height : %d \n", square->shape.squ.wh);
 }
 
 void getEllipse(Data *ellipse) {
   printf("/+--| Ellipse |--+/\n");
-  printf("Position (x : %d, y : %d)\n", ellipse->shape->elli.cx,
-         ellipse->shape->elli.cy);
-  printf("Rayon : %d (x) & Rayon : %d (y)\n", ellipse->shape->elli.rx,
-         ellipse->shape->elli.ry);
+  printf("Position (x : %d, y : %d)\n", ellipse->shape.elli.cx,
+         ellipse->shape.elli.cy);
+  printf("Rayon : %d (x) & Rayon : %d (y)\n", ellipse->shape.elli.rx,
+         ellipse->shape.elli.ry);
 }
 /*
  * Get value of Circle
@@ -32,10 +33,19 @@ void getEllipse(Data *ellipse) {
 
 void getCircle(Data *circle) {
   printf("/+--| Circle |--+/\n");
-  printf("Position (x : %d, y : %d)\n", circle->shape->circle.cx,
-         circle->shape->circle.cy);
-  printf("Rayon : %d \n", circle->shape->circle.r);
+  printf("Position (x : %d, y : %d)\n", circle->shape.circle.cx,
+         circle->shape.circle.cy);
+  printf("Rayon : %d \n", circle->shape.circle.r);
 }
+
+void getLine(Data *line) {
+  printf("/+--| Line |--+/\n");
+  printf("Position (x1 : %d, y1 : %d)\n", line->shape.line.x1,
+         line->shape.line.y1);
+  printf("Position (x2 : %d, y2 : %d)\n", line->shape.line.x2,
+         line->shape.line.y2);
+}
+
 /*
  * Get value of Polygon or Polyline
  */
@@ -56,15 +66,61 @@ void getShape(ListNodePoly *poly, ShapeType type){
         current = current->next;
     }
 }
+
+void getPath(ListNodePath *path){
+    printf("/+--| Path |--+\n");
+    ListNodePath *current = path;
+    printf("Order : ");
+    while (current != NULL){
+        switch (current->path->orderType) {
+            case 'M':
+                printf(" %c %d %d ", current->path->orderType, current->path->order.mv.x, current->path->order.mv.y);
+                break;
+            case 'L':
+                printf(" %c %d %d ", current->path->orderType, current->path->order.lp.x, current->path->order.lp.y);
+                break;
+            case 'H':
+                printf(" %c %d ", current->path->orderType, current->path->order.h.x);
+                break;
+            case 'V':
+                printf(" %c %d  ", current->path->orderType, current->path->order.v.y);
+                break;
+            case 'C':
+                printf(" %c ", current->path->orderType);
+                printf(" %d %d ",  current->path->order.c.x1, current->path->order.c.y1);
+                printf(" %d %d ",  current->path->order.c.x2, current->path->order.c.y2);
+                printf(" %d %d ",  current->path->order.c.x3, current->path->order.c.y3);
+                break;
+            case 'S':
+                printf(" %c ", current->path->orderType);
+                printf(" %d %d ",  current->path->order.sc.x1, current->path->order.sc.y1);
+                printf(" %d %d ",  current->path->order.sc.x2, current->path->order.sc.y2);
+                break;
+            case 'Q':
+                printf(" %c ", current->path->orderType);
+                printf(" %d %d ",  current->path->order.qc.x1, current->path->order.qc.y1);
+                printf(" %d %d ",  current->path->order.qc.x2, current->path->order.qc.y2);
+                break;
+            case 'T':
+                printf(" %c ", current->path->orderType);
+                printf(" %d %d ",  current->path->order.sq.x, current->path->order.sq.y);
+                break;
+            default:
+                break;
+        }
+        current = current->next;
+    }
+    printf("\n");
+}
 int getInt(void) {
   int variable;
   bool isFinish = false;
   while (isFinish != true) {
     scanf("%d", &variable);
-    if (variable >= 1) {
+    if ((variable >= 0) && (variable <= 200)) {
       isFinish = true;
     } else {
-      printf("Valeur Inconnu ! \nRecommencez !\n");
+      printf("Value Unknow ! \nRetry !\n");
     }
   }
   return variable;

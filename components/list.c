@@ -15,7 +15,6 @@ List *createList(void)
     List *ListShape = malloc(sizeof(List));
     ListShape->form = malloc(sizeof(ListNode));
     ListShape->form->data = malloc(sizeof(Data));
-    ListShape->form->data->shape = malloc(sizeof(Shape));
     ListShape->lenght = 0;
     return ListShape;
 }
@@ -63,7 +62,7 @@ void getList(List *list)
         getSquare(current->data);
         break;
     case LINE:
-
+        getLine(current->data);
         break;
     case CIRCLE:
         getCircle(current->data);
@@ -72,15 +71,16 @@ void getList(List *list)
         getEllipse(current->data);
         break;
     case POLYGONE:
-        ListNodePoly *currentPoly = current->data->shape->poly->list;
+        ListNodePoly *currentPoly = current->data->shape.poly->list;
         getShape(currentPoly,current->data->type);
         break;
     case STRLINE:
-        ListNodePoly *currentLineStr = current->data->shape->poly->list;
+        ListNodePoly *currentLineStr = current->data->shape.poly->list;
         getShape(currentLineStr,current->data->type);
         break;
     case PATH:
-
+        ListNodePath *currentPath = current->data->shape.path->list;
+        getPath(currentPath);
         break;
     case GROUP :
         break;

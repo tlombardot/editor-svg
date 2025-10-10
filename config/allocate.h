@@ -6,7 +6,8 @@
 #include <stdbool.h>
 #include "struct.h"
 
-Data *setMalloc();
-Data *setMallocPoly();
+Data *allocateMemory();
+Data *allocateMemoryPoly();
+Data *allocateMemoryPath();
 
 #endif

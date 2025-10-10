@@ -3,14 +3,14 @@
 #include "../config/struct.h"
 #include <stdbool.h>
 #include <stdlib.h>
-#include "../config/set.h"
+#include "../config/allocate.h"
 
 Data *createRectangle() {
-  Data *new_rectangle = setMalloc();
-  new_rectangle->shape->rect.x = getXCoord();
-  new_rectangle->shape->rect.y = getYCoord();
-  new_rectangle->shape->rect.width = getWIDTHCoord();
-  new_rectangle->shape->rect.height = getHEIGHTCoord();
+  Data *new_rectangle = allocateMemory();
+  new_rectangle->shape.rect.x = getXCoord();
+  new_rectangle->shape.rect.y = getYCoord();
+  new_rectangle->shape.rect.width = getWIDTHCoord();
+  new_rectangle->shape.rect.height = getHEIGHTCoord();
   new_rectangle->type = RECTANGLE;
   return new_rectangle;
 }
@@ -18,10 +18,10 @@ Data *createRectangle() {
 void freeRectangle(Data *rectangle) { free(rectangle); }
 
 Data *createCircle() {
-  Data *new_circle = setMalloc();
-  new_circle->shape->circle.cx = getXCoord();
-  new_circle->shape->circle.cx = getYCoord();
-  new_circle->shape->circle.r = getRange();
+  Data *new_circle = allocateMemory();
+  new_circle->shape.circle.cx = getXCoord();
+  new_circle->shape.circle.cx = getYCoord();
+  new_circle->shape.circle.r = getRange();
   new_circle->type = CIRCLE;
   return new_circle;
 }
@@ -29,11 +29,11 @@ Data *createCircle() {
 void freeCicle(Data *circle) { free(circle); }
 
 Data *createEllipse() {
-  Data *new_ellipse = setMalloc();
-  new_ellipse->shape->elli.cx = getXCoord();
-  new_ellipse->shape->elli.cy = getYCoord();
-  new_ellipse->shape->elli.rx = getRange();
-  new_ellipse->shape->elli.ry = getRange();
+  Data *new_ellipse = allocateMemory();
+  new_ellipse->shape.elli.cx = getXCoord();
+  new_ellipse->shape.elli.cy = getYCoord();
+  new_ellipse->shape.elli.rx = getRange();
+  new_ellipse->shape.elli.ry = getRange();
   new_ellipse->type = ELLIPSE;
   return new_ellipse;
 }
@@ -41,10 +41,10 @@ Data *createEllipse() {
 void freeEllipse(Data *ellipse) { free(ellipse); }
 
 Data *createSquare() {
-  Data *new_square = setMalloc();
-  new_square->shape->squ.x = getXCoord();
-  new_square->shape->squ.y = getYCoord();
-  new_square->shape->squ.wh = getWIDTHCoord();
+  Data *new_square = allocateMemory();
+  new_square->shape.squ.x = getXCoord();
+  new_square->shape.squ.y = getYCoord();
+  new_square->shape.squ.wh = getWIDTHCoord();
   new_square->type = SQUARE;
   return new_square;
 }
@@ -52,11 +52,11 @@ Data *createSquare() {
 void freeSquare(Data *square) { free(square); }
 
 Data *createLine() {
-  Data *new_line = setMalloc();
-  new_line->shape->line.x1 = getXCoord();
-  new_line->shape->line.y1 = getYCoord();
-  new_line->shape->line.x2 = getXCoord();
-  new_line->shape->line.y2 = getYCoord();
+  Data *new_line = allocateMemory();
+  new_line->shape.line.x1 = getXCoord();
+  new_line->shape.line.y1 = getYCoord();
+  new_line->shape.line.x2 = getXCoord();
+  new_line->shape.line.y2 = getYCoord();
   new_line->type = LINE;
   return new_line;
 }
@@ -71,11 +71,12 @@ Polygone *createPolygon() {
 }
 
 Data *createShapeless(ShapeType type) {
-  Data *new_poly = setMallocPoly();
-  ListNodePoly *current = new_poly->shape->poly->list;
+  Data *new_poly = allocateMemoryPoly();
+  new_poly->shape.poly->lenght = 0;
+  ListNodePoly *current = new_poly->shape.poly->list;
   bool isFinish = false;
-  new_poly->shape->poly->list->value = createPolygon();
-  new_poly->shape->poly->lenght++;
+  new_poly->shape.poly->list->value = createPolygon();
+  new_poly->shape.poly->lenght++;
   while (isFinish != true) {
       isFinish = getBool();
       if (isFinish == true){
@@ -87,7 +88,7 @@ Data *createShapeless(ShapeType type) {
       newNode->previous = current;
       current->next = newNode;
       current = current->next;
-      new_poly->shape->poly->lenght++;
+      new_poly->shape.poly->lenght++;
       }
   }
   new_poly->type = type;
@@ -95,6 +96,11 @@ Data *createShapeless(ShapeType type) {
 }
 
 Data *createPath(){
-    Data* new_path = malloc(sizeof(Data));
+    Data* new_path = allocateMemoryPath();
+    new_path->shape.path->list->path->order.mv.x = getXCoord();
+    new_path->shape.path->list->path->order.mv.y = getYCoord();
+    new_path->shape.path->list->path->orderType = 'M';
+    new_path->shape.path->lenght = 0;
+    new_path->type = PATH;
     return new_path;
 }

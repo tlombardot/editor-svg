@@ -1,13 +1,14 @@
 CC      := gcc
-CFLAGS  := -std=c99 -Wall -Werror -Wextra
+CFLAGS  := -std=c99 -Wall -Werror -Wextra -g -O0
 TARGET  := bin/main
 SRC     := main.c \
 			components/create.c \
 			components/get.c \
 			components/list.c \
 			utils/windows_user.c \
-			config/set.c \
+			config/allocate.c \
 			utils/interface_path.c \
+			config/path.c \
 
 OBJ     := $(SRC:.c=.o)
 
@@ -23,6 +24,13 @@ $(TARGET): $(OBJ) | bin
 
 bin:
 	mkdir -p bin
+
+run: $(TARGET)
+	./$(TARGET)
+
+# Lance le programme avec gdb pour voir les segfaults
+debug: $(TARGET)
+	gdb ./$(TARGET)
 
 clean:
 	rm -f $(OBJ) $(TARGET)

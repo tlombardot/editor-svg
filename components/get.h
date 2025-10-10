@@ -14,7 +14,9 @@ int getWIDTHCoord();
 int getHEIGHTCoord();
 int getRange();
 void getShape(ListNodePoly *poly, ShapeType type);
+void getPath(ListNodePath *path);
 char getChar();
 bool getBool();
+void getLine(Data *line);
 
 #endif

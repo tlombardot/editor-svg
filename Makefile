@@ -9,6 +9,8 @@ SRC     := main.c \
 			config/allocate.c \
 			utils/interface_path.c \
 			config/path.c \
+			config/style.c \
+
 
 OBJ     := $(SRC:.c=.o)
 

@@ -56,19 +56,19 @@ void getList(List *list)
     switch (current->data->type)
     {
     case RECTANGLE:
-        getRectangle(current->data);
+        getRectangle(current->data, i);
         break;
     case SQUARE:
-        getSquare(current->data);
+        getSquare(current->data, i);
         break;
     case LINE:
-        getLine(current->data);
+        getLine(current->data, i);
         break;
     case CIRCLE:
-        getCircle(current->data);
+        getCircle(current->data, i);
         break;
     case ELLIPSE:
-        getEllipse(current->data);
+        getEllipse(current->data, i);
         break;
     case POLYGONE:
         ListNodePoly *currentPoly = current->data->shape.poly->list;

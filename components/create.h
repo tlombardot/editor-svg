@@ -18,5 +18,6 @@ Data *createLine();
 void freeLine(Data *line);
 Data *createShapeless();
 Data *createPath();
+Data *createGroup();
 
 #endif

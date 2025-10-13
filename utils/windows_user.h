@@ -1,7 +1,9 @@
 #ifndef WINDOWS_USER
 #define WINDOWS_USER
 
-void userInterface();
+#include "../components/list.h"
+
+List *userInterface();
 
 int getAnswer();
 

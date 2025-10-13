@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "../config/allocate.h"
+#include "../config/style.h"
 
 Data *createRectangle() {
   Data *new_rectangle = allocateMemory();
@@ -11,6 +12,9 @@ Data *createRectangle() {
   new_rectangle->shape.rect.y = getYCoord();
   new_rectangle->shape.rect.width = getWIDTHCoord();
   new_rectangle->shape.rect.height = getHEIGHTCoord();
+  new_rectangle->shape.rect.style = createFillStyle(&new_rectangle->shape.rect.style);
+  new_rectangle->shape.rect.style = createStrokeStyle(&new_rectangle->shape.rect.style);
+  new_rectangle->shape.rect.style = createAngleStyle(&new_rectangle->shape.rect.style);
   new_rectangle->type = RECTANGLE;
   return new_rectangle;
 }
@@ -20,13 +24,16 @@ void freeRectangle(Data *rectangle) { free(rectangle); }
 Data *createCircle() {
   Data *new_circle = allocateMemory();
   new_circle->shape.circle.cx = getXCoord();
-  new_circle->shape.circle.cx = getYCoord();
+  new_circle->shape.circle.cy = getYCoord();
   new_circle->shape.circle.r = getRange();
+  new_circle->shape.circle.style = createFillStyle(&new_circle->shape.circle.style);
+  new_circle->shape.circle.style = createStrokeStyle(&new_circle->shape.circle.style);
+  new_circle->shape.circle.style = createAngleStyle(&new_circle->shape.circle.style);
   new_circle->type = CIRCLE;
   return new_circle;
 }
 
-void freeCicle(Data *circle) { free(circle); }
+void freeCircle(Data *circle) { free(circle); }
 
 Data *createEllipse() {
   Data *new_ellipse = allocateMemory();
@@ -34,6 +41,9 @@ Data *createEllipse() {
   new_ellipse->shape.elli.cy = getYCoord();
   new_ellipse->shape.elli.rx = getRange();
   new_ellipse->shape.elli.ry = getRange();
+  new_ellipse->shape.elli.style = createFillStyle(&new_ellipse->shape.elli.style);
+  new_ellipse->shape.elli.style = createStrokeStyle(&new_ellipse->shape.elli.style);
+  new_ellipse->shape.elli.style = createAngleStyle(&new_ellipse->shape.elli.style);
   new_ellipse->type = ELLIPSE;
   return new_ellipse;
 }
@@ -45,6 +55,9 @@ Data *createSquare() {
   new_square->shape.squ.x = getXCoord();
   new_square->shape.squ.y = getYCoord();
   new_square->shape.squ.wh = getWIDTHCoord();
+  new_square->shape.squ.style = createFillStyle(&new_square->shape.squ.style);
+  new_square->shape.squ.style = createStrokeStyle(&new_square->shape.squ.style);
+  new_square->shape.squ.style = createAngleStyle(&new_square->shape.squ.style);
   new_square->type = SQUARE;
   return new_square;
 }
@@ -57,6 +70,9 @@ Data *createLine() {
   new_line->shape.line.y1 = getYCoord();
   new_line->shape.line.x2 = getXCoord();
   new_line->shape.line.y2 = getYCoord();
+  new_line->shape.line.style = createStrokeStyle(&new_line->shape.line.style);
+  new_line->shape.line.style = createAngleStyle(&new_line->shape.line.style);
+  new_line->shape.line.style = createFillStyle(&new_line->shape.line.style);
   new_line->type = LINE;
   return new_line;
 }
@@ -103,4 +119,10 @@ Data *createPath(){
     new_path->shape.path->lenght = 0;
     new_path->type = PATH;
     return new_path;
+}
+
+Data *createGroup(){
+    Data *new_group = allocateMemoryGroup();
+    new_group->type = GROUP;
+    return new_group;
 }

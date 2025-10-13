@@ -23,3 +23,9 @@ Data *allocateMemoryPath(){
     new_shape->shape.path->list->path = malloc(sizeof(Path));
     return new_shape;
 }
+
+Data *allocateMemoryGroup(){
+    Data *new_group = malloc(sizeof(Data));
+    new_group->shape.group = malloc(sizeof(Group));
+    return new_group;
+}

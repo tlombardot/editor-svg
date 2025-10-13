@@ -21,7 +21,8 @@ int getAnswer()
     return answer;
 }
 
-void userInterface()
+
+List *userInterface()
 {
     List *list = createList();
     int answer = getAnswer();
@@ -77,16 +78,22 @@ void userInterface()
                 getList(list);
                 break;
             case 9:
+                Data *group = createGroup();
+                group->shape.group->grouplist = userInterface();
+                list = appendList(list, group);
+                getList(list);
                 break;
             default:
                 break;
             }
             break;
+        case 2:
+            printf("Press number of the shape you want to edit\n");
 
         default:
             break;
         }
         answer = getAnswer();
     }
-    return;
+    return list;
 }

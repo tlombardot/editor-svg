@@ -5,45 +5,60 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void getRectangle(Data *rectangle) {
-  printf("/+--| Rectangle |--+/\n");
+void getRectangle(Data *rectangle, int index) {
+  printf("/+--| Rectangle |--+/ --- %d ---\n", index);
   printf("Position (x : %d, y : %d)\n", rectangle->shape.rect.x,
          rectangle->shape.rect.y);
   printf("Width : %d \n", rectangle->shape.rect.width);
   printf("Height : %d \n", rectangle->shape.rect.height);
+  printf("Fill : %d/%d/%d \n",rectangle->shape.rect.style.RF,rectangle->shape.rect.style.GF,rectangle->shape.rect.style.BF);
+  printf("Stroke : %d/%d/%d \n",rectangle->shape.rect.style.RS,rectangle->shape.rect.style.GS,rectangle->shape.rect.style.BS);
+  printf("Angle : %d \n",rectangle->shape.rect.style.angle);
 }
 
-void getSquare(Data *square) {
-  printf("/+--| Square |--+/\n");
+void getSquare(Data *square, int index) {
+  printf("/+--| Square |--+/ --- %d ---\n", index);
   printf("Position (x : %d, y : %d)\n", square->shape.squ.x,
          square->shape.squ.y);
   printf("Weight & Height : %d \n", square->shape.squ.wh);
+  printf("Fill : %d/%d/%d \n",square->shape.squ.style.RF,square->shape.squ.style.GF,square->shape.squ.style.BF);
+  printf("Stroke : %d/%d/%d \n",square->shape.squ.style.RS,square->shape.squ.style.GS,square->shape.squ.style.BS);
+  printf("Angle : %d \n",square->shape.squ.style.angle);
 }
 
-void getEllipse(Data *ellipse) {
-  printf("/+--| Ellipse |--+/\n");
+void getEllipse(Data *ellipse, int index) {
+  printf("/+--| Ellipse |--+/ --- %d ---\n", index);
   printf("Position (x : %d, y : %d)\n", ellipse->shape.elli.cx,
          ellipse->shape.elli.cy);
   printf("Rayon : %d (x) & Rayon : %d (y)\n", ellipse->shape.elli.rx,
          ellipse->shape.elli.ry);
+  printf("Fill : %d/%d/%d \n",ellipse->shape.elli.style.RF,ellipse->shape.elli.style.GF,ellipse->shape.elli.style.BF);
+  printf("Stroke : %d/%d/%d \n",ellipse->shape.elli.style.RS,ellipse->shape.elli.style.GS,ellipse->shape.elli.style.BS);
+  printf("Angle : %d \n",ellipse->shape.elli.style.angle);
 }
 /*
  * Get value of Circle
  */
 
-void getCircle(Data *circle) {
-  printf("/+--| Circle |--+/\n");
+void getCircle(Data *circle, int index) {
+  printf("/+--| Circle |--+/ --- %d ---\n", index);
   printf("Position (x : %d, y : %d)\n", circle->shape.circle.cx,
          circle->shape.circle.cy);
   printf("Rayon : %d \n", circle->shape.circle.r);
+  printf("Fill : %d/%d/%d \n",circle->shape.circle.style.RF,circle->shape.circle.style.GF,circle->shape.circle.style.BF);
+  printf("Stroke : %d/%d/%d \n",circle->shape.circle.style.RS,circle->shape.circle.style.GS,circle->shape.circle.style.BS);
+  printf("Angle : %d \n",circle->shape.circle.style.angle);
 }
 
-void getLine(Data *line) {
-  printf("/+--| Line |--+/\n");
+void getLine(Data *line, int index) {
+  printf("/+--| Line |--+/ --- %d ---\n", index);
   printf("Position (x1 : %d, y1 : %d)\n", line->shape.line.x1,
          line->shape.line.y1);
   printf("Position (x2 : %d, y2 : %d)\n", line->shape.line.x2,
          line->shape.line.y2);
+  printf("Fill : %d/%d/%d \n",line->shape.line.style.RF,line->shape.line.style.GF,line->shape.line.style.BF);
+  printf("Stroke : %d/%d/%d \n",line->shape.line.style.RS,line->shape.line.style.GS,line->shape.line.style.BS);
+  printf("Angle : %d \n",line->shape.line.style.angle);
 }
 
 /*

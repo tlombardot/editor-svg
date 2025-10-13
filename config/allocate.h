@@ -9,5 +9,6 @@
 Data *allocateMemory();
 Data *allocateMemoryPoly();
 Data *allocateMemoryPath();
+Data *allocateMemoryGroup();
 
 #endif

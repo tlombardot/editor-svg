@@ -15,34 +15,45 @@ typedef enum
 
 } ShapeType;
 
+
+typedef struct Style{
+    int RS,GS,BS;
+    int RF,GF,BF;
+    int angle;
+} Style;
+
 typedef struct
 {
     int x, y, width, height;
-
+    Style style;
 } Rectangle;
 
 typedef struct
 {
     int cx, cy;
     unsigned int r;
+    Style style;
 
 } Circle;
 
 typedef struct
 {
     int x1, y1, x2, y2;
+    Style style;
 
 } Line;
 
 typedef struct
 {
     int x, y, wh;
+    Style style;
 
 } Square;
 
 typedef struct
 {
     int cx, cy, rx, ry;
+    Style style;
 
 } Ellipse;
 
@@ -147,6 +158,8 @@ typedef struct ListPoly
 
 }ListPoly;
 
+typedef struct Group Group;
+
 /*
  * Main Struct
  */
@@ -160,7 +173,7 @@ typedef union Shape
     Ellipse elli;
     ListPoly *poly;
     ListPath *path;
-
+    Group *group;
 
 } Shape;
 
@@ -169,13 +182,6 @@ typedef struct {
     Shape shape;
 }Data;
 
-/*
- * Group type form
- */
-typedef struct
-{
-    Data form;
-} Group;
 
 
 /*
@@ -196,6 +202,14 @@ typedef struct
     int lenght;
 
 } List;
+
+/*
+ * Group type form
+ */
+
+ struct Group{
+     List *grouplist;
+ };
 
 
 #endif

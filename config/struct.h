@@ -16,10 +16,15 @@ typedef enum
 } ShapeType;
 
 
+typedef struct Translate{
+    int x,y;
+} Translate;
+
 typedef struct Style{
     int RS,GS,BS;
     int RF,GF,BF;
     int angle;
+    Translate translate;
 } Style;
 
 typedef struct
@@ -129,6 +134,7 @@ typedef struct ListPath
 {
     ListNodePath *list;
     int lenght;
+    Style style;
 
 } ListPath;
 
@@ -155,6 +161,7 @@ typedef struct ListPoly
 {
     ListNodePoly *list;
     int lenght;
+    Style style;
 
 }ListPoly;
 

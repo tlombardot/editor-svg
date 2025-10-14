@@ -4,3 +4,4 @@
 Style createFillStyle(Style *style);
 Style createAngleStyle(Style *style);
 Style createStrokeStyle(Style *style);
+Translate createTranslateStyle(Style *style);

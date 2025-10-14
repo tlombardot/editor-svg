@@ -15,6 +15,7 @@ Data *createRectangle() {
   new_rectangle->shape.rect.style = createFillStyle(&new_rectangle->shape.rect.style);
   new_rectangle->shape.rect.style = createStrokeStyle(&new_rectangle->shape.rect.style);
   new_rectangle->shape.rect.style = createAngleStyle(&new_rectangle->shape.rect.style);
+  new_rectangle->shape.rect.style.translate = createTranslateStyle(&new_rectangle->shape.rect.style);
   new_rectangle->type = RECTANGLE;
   return new_rectangle;
 }
@@ -29,6 +30,7 @@ Data *createCircle() {
   new_circle->shape.circle.style = createFillStyle(&new_circle->shape.circle.style);
   new_circle->shape.circle.style = createStrokeStyle(&new_circle->shape.circle.style);
   new_circle->shape.circle.style = createAngleStyle(&new_circle->shape.circle.style);
+  new_circle->shape.circle.style.translate = createTranslateStyle(&new_circle->shape.circle.style);
   new_circle->type = CIRCLE;
   return new_circle;
 }
@@ -44,6 +46,7 @@ Data *createEllipse() {
   new_ellipse->shape.elli.style = createFillStyle(&new_ellipse->shape.elli.style);
   new_ellipse->shape.elli.style = createStrokeStyle(&new_ellipse->shape.elli.style);
   new_ellipse->shape.elli.style = createAngleStyle(&new_ellipse->shape.elli.style);
+  new_ellipse->shape.elli.style.translate = createTranslateStyle(&new_ellipse->shape.elli.style);
   new_ellipse->type = ELLIPSE;
   return new_ellipse;
 }
@@ -58,6 +61,7 @@ Data *createSquare() {
   new_square->shape.squ.style = createFillStyle(&new_square->shape.squ.style);
   new_square->shape.squ.style = createStrokeStyle(&new_square->shape.squ.style);
   new_square->shape.squ.style = createAngleStyle(&new_square->shape.squ.style);
+  new_square->shape.squ.style.translate = createTranslateStyle(&new_square->shape.squ.style);
   new_square->type = SQUARE;
   return new_square;
 }
@@ -73,6 +77,7 @@ Data *createLine() {
   new_line->shape.line.style = createStrokeStyle(&new_line->shape.line.style);
   new_line->shape.line.style = createAngleStyle(&new_line->shape.line.style);
   new_line->shape.line.style = createFillStyle(&new_line->shape.line.style);
+  new_line->shape.line.style.translate = createTranslateStyle(&new_line->shape.line.style);
   new_line->type = LINE;
   return new_line;
 }
@@ -111,6 +116,18 @@ Data *createShapeless(ShapeType type) {
   return new_poly;
 }
 
+void freeShapeless(Data *shapeless) {
+    ListNodePoly *current = shapeless->shape.poly->list;
+    ListNodePoly *next;
+    while (current != NULL) {
+        next = current->next;
+        free(current->value);
+        free(current);
+        current = next;
+    }
+    free(shapeless);
+}
+
 Data *createPath(){
     Data* new_path = allocateMemoryPath();
     new_path->shape.path->list->path->order.mv.x = getXCoord();
@@ -119,6 +136,17 @@ Data *createPath(){
     new_path->shape.path->lenght = 0;
     new_path->type = PATH;
     return new_path;
+}
+void freePath(Data *path) {
+    ListNodePath *current = path->shape.path->list;
+    ListNodePath *next;
+    while (current != NULL) {
+        next = current->next;
+        free(current->path);
+        free(current);
+        current = next;
+    }
+    free(path);
 }
 
 Data *createGroup(){

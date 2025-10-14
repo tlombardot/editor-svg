@@ -50,6 +50,11 @@ Get all shape in the list
 
 void getList(List *list)
 {
+    if(list->lenght == 0)
+    {
+        printf("No shape in the list\n");
+        return;
+    }
     ListNode *current = list->form;
     for (int i = 0; i < list->lenght; i++)
     {

@@ -10,11 +10,12 @@ SRC     := main.c \
 			utils/interface_path.c \
 			config/path.c \
 			config/style.c \
-
+			components/edit.c \
+			components/remove.c \
 
 OBJ     := $(SRC:.c=.o)
 
-.PHONY: all clean
+.PHONY: all clean run debug rebuild
 
 all: $(TARGET)
 
@@ -27,11 +28,12 @@ $(TARGET): $(OBJ) | bin
 bin:
 	mkdir -p bin
 
-run: $(TARGET)
+run: all
+	@echo "🚀 Running program..."
 	./$(TARGET)
 
-# Lance le programme avec gdb pour voir les segfaults
-debug: $(TARGET)
+debug: all
+	@echo "🐞 Starting GDB..."
 	gdb ./$(TARGET)
 
 clean:

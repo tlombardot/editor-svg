@@ -9,3 +9,4 @@
 List *createList(void);
 List *appendList(List *list, Data *data);
 void getList(List * list);
+void freeList(List *list);

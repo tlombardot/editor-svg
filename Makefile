@@ -1,5 +1,5 @@
 CC      := gcc
-CFLAGS  := -std=c99 -Wall -Werror -Wextra -g -O0
+CFLAGS  := -std=c99 -Wall -Werror -Wextra -g -O0 -lSDL2 -lm
 TARGET  := bin/main
 SRC     := main.c \
 			components/create.c \
@@ -12,6 +12,8 @@ SRC     := main.c \
 			config/style.c \
 			components/edit.c \
 			components/remove.c \
+			svg/svg.c \
+
 
 OBJ     := $(SRC:.c=.o)
 
@@ -29,11 +31,11 @@ bin:
 	mkdir -p bin
 
 run: all
-	@echo "🚀 Running program..."
+	@echo "Running program..."
 	./$(TARGET)
 
 debug: all
-	@echo "🐞 Starting GDB..."
+	@echo "Starting GDB..."
 	gdb ./$(TARGET)
 
 clean:

@@ -3,225 +3,172 @@
 #include "../config/struct.h"
 #include <stdbool.h>
 #include <stdio.h>
+#include "get.h"
+#include "../config/struct.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "../utils/windows_user.h"
+
+// Style colors
+#define RESET       "\x1b[0m"
+#define BOLD        "\x1b[1m"
+#define DIM         "\x1b[2m"
+
+#define RED         "\x1b[91m"
+#define GREEN       "\x1b[92m"
+#define YELLOW      "\x1b[93m"
+#define BLUE        "\x1b[94m"
+#define MAGENTA     "\x1b[95m"
+#define CYAN        "\x1b[96m"
+#define WHITE       "\x1b[97m"
 
 
+
+
+// === PRINT SHAPES ===
 void getRectangle(Data *rectangle, int index) {
-    printf("\n╔════════════════════════════════════════╗\n");
-    printf("║            🟥 RECTANGLE #%d             ║\n", index);
-    printf("╠════════════════════════════════════════╣\n");
-    printf("║ Position : (x = %d, y = %d)\n", rectangle->shape.rect.x, rectangle->shape.rect.y);
-    printf("║ Width    : %d\n", rectangle->shape.rect.width);
-    printf("║ Height   : %d\n", rectangle->shape.rect.height);
-    printf("║ Fill     : %d / %d / %d\n", rectangle->shape.rect.style.RF, rectangle->shape.rect.style.GF, rectangle->shape.rect.style.BF);
-    printf("║ Stroke   : %d / %d / %d\n", rectangle->shape.rect.style.RS, rectangle->shape.rect.style.GS, rectangle->shape.rect.style.BS);
-    printf("║ Angle    : %d°\n", rectangle->shape.rect.style.angle);
-    printf("╚════════════════════════════════════════╝\n");
+    printf(BOLD CYAN "■ RECTANGLE #%d\n" RESET, index);
+    printf(BOLD WHITE " Pos: " RESET "(%d, %d)  " BOLD WHITE "W/H: " RESET "%d/%d\n",
+           rectangle->shape.rect.x, rectangle->shape.rect.y,
+           rectangle->shape.rect.width, rectangle->shape.rect.height);
+    printf(BOLD WHITE " Fill: " RESET "%d/%d/%d  " BOLD WHITE "Stroke: " RESET "%d/%d/%d  " BOLD WHITE "Angle: " RESET "%d°\n",
+           rectangle->shape.rect.style.RF, rectangle->shape.rect.style.GF, rectangle->shape.rect.style.BF,
+           rectangle->shape.rect.style.RS, rectangle->shape.rect.style.GS, rectangle->shape.rect.style.BS,
+           rectangle->shape.rect.style.angle);
+    HeaderLine();
 }
 
 void getSquare(Data *square, int index) {
-    printf("\n╔════════════════════════════════════════╗\n");
-    printf("║            ⬛ SQUARE #%d                ║\n", index);
-    printf("╠════════════════════════════════════════╣\n");
-    printf("║ Position : (x = %d, y = %d)\n", square->shape.squ.x, square->shape.squ.y);
-    printf("║ Size     : %d (width = height)\n", square->shape.squ.wh);
-    printf("║ Fill     : %d / %d / %d\n", square->shape.squ.style.RF, square->shape.squ.style.GF, square->shape.squ.style.BF);
-    printf("║ Stroke   : %d / %d / %d\n", square->shape.squ.style.RS, square->shape.squ.style.GS, square->shape.squ.style.BS);
-    printf("║ Angle    : %d°\n", square->shape.squ.style.angle);
-    printf("╚════════════════════════════════════════╝\n");
+    printf(BOLD CYAN "■ SQUARE #%d\n" RESET, index);
+    printf(BOLD WHITE " Pos: " RESET "(%d, %d)  " BOLD WHITE "Size: " RESET "%d\n",
+           square->shape.squ.x, square->shape.squ.y, square->shape.squ.wh);
+    printf(BOLD WHITE " Fill: " RESET "%d/%d/%d  " BOLD WHITE "Stroke: " RESET "%d/%d/%d  " BOLD WHITE "Angle: " RESET "%d°\n",
+           square->shape.squ.style.RF, square->shape.squ.style.GF, square->shape.squ.style.BF,
+           square->shape.squ.style.RS, square->shape.squ.style.GS, square->shape.squ.style.BS,
+           square->shape.squ.style.angle);
+    HeaderLine();
 }
 
 void getEllipse(Data *ellipse, int index) {
-    printf("\n╔════════════════════════════════════════╗\n");
-    printf("║            🟣 ELLIPSE #%d               ║\n", index);
-    printf("╠════════════════════════════════════════╣\n");
-    printf("║ Center : (x = %d, y = %d)\n", ellipse->shape.elli.cx, ellipse->shape.elli.cy);
-    printf("║ Radius : %d (x-axis), %d (y-axis)\n", ellipse->shape.elli.rx, ellipse->shape.elli.ry);
-    printf("║ Fill   : %d / %d / %d\n", ellipse->shape.elli.style.RF, ellipse->shape.elli.style.GF, ellipse->shape.elli.style.BF);
-    printf("║ Stroke : %d / %d / %d\n", ellipse->shape.elli.style.RS, ellipse->shape.elli.style.GS, ellipse->shape.elli.style.BS);
-    printf("║ Angle  : %d°\n", ellipse->shape.elli.style.angle);
-    printf("╚════════════════════════════════════════╝\n");
+    printf(BOLD CYAN "● ELLIPSE #%d\n" RESET, index);
+    printf(BOLD WHITE " Center: " RESET "(%d, %d)  " BOLD WHITE "Radius: " RESET "%d/%d\n",
+           ellipse->shape.elli.cx, ellipse->shape.elli.cy,
+           ellipse->shape.elli.rx, ellipse->shape.elli.ry);
+    printf(BOLD WHITE " Fill: " RESET "%d/%d/%d  " BOLD WHITE "Stroke: " RESET "%d/%d/%d  " BOLD WHITE "Angle: " RESET "%d°\n",
+           ellipse->shape.elli.style.RF, ellipse->shape.elli.style.GF, ellipse->shape.elli.style.BF,
+           ellipse->shape.elli.style.RS, ellipse->shape.elli.style.GS, ellipse->shape.elli.style.BS,
+           ellipse->shape.elli.style.angle);
+    HeaderLine();
 }
 
 void getCircle(Data *circle, int index) {
-    printf("\n╔════════════════════════════════════════╗\n");
-    printf("║             🔵 CIRCLE #%d               ║\n", index);
-    printf("╠════════════════════════════════════════╣\n");
-    printf("║ Center : (x = %d, y = %d)\n", circle->shape.circle.cx, circle->shape.circle.cy);
-    printf("║ Radius : %d\n", circle->shape.circle.r);
-    printf("║ Fill   : %d / %d / %d\n", circle->shape.circle.style.RF, circle->shape.circle.style.GF, circle->shape.circle.style.BF);
-    printf("║ Stroke : %d / %d / %d\n", circle->shape.circle.style.RS, circle->shape.circle.style.GS, circle->shape.circle.style.BS);
-    printf("║ Angle  : %d°\n", circle->shape.circle.style.angle);
-    printf("╚════════════════════════════════════════╝\n");
+    printf(BOLD CYAN "● CIRCLE #%d\n" RESET, index);
+    printf(BOLD WHITE " Center: " RESET "(%d, %d)  " BOLD WHITE "Radius: " RESET "%d\n",
+           circle->shape.circle.cx, circle->shape.circle.cy, circle->shape.circle.r);
+    printf(BOLD WHITE " Fill: " RESET "%d/%d/%d  " BOLD WHITE "Stroke: " RESET "%d/%d/%d  " BOLD WHITE "Angle: " RESET "%d°\n",
+           circle->shape.circle.style.RF, circle->shape.circle.style.GF, circle->shape.circle.style.BF,
+           circle->shape.circle.style.RS, circle->shape.circle.style.GS, circle->shape.circle.style.BS,
+           circle->shape.circle.style.angle);
+    HeaderLine();
 }
 
 void getLine(Data *line, int index) {
-    printf("\n╔════════════════════════════════════════╗\n");
-    printf("║              ➖ LINE #%d                ║\n", index);
-    printf("╠════════════════════════════════════════╣\n");
-    printf("║ Start : (x1 = %d, y1 = %d)\n", line->shape.line.x1, line->shape.line.y1);
-    printf("║ End   : (x2 = %d, y2 = %d)\n", line->shape.line.x2, line->shape.line.y2);
-    printf("║ Fill  : %d / %d / %d\n", line->shape.line.style.RF, line->shape.line.style.GF, line->shape.line.style.BF);
-    printf("║ Stroke: %d / %d / %d\n", line->shape.line.style.RS, line->shape.line.style.GS, line->shape.line.style.BS);
-    printf("║ Angle : %d°\n", line->shape.line.style.angle);
-    printf("╚════════════════════════════════════════╝\n");
+    printf(BOLD CYAN "─ LINE #%d\n" RESET, index);
+    printf(BOLD WHITE " Start: " RESET "(%d, %d)  " BOLD WHITE "End: " RESET "(%d, %d)\n",
+           line->shape.line.x1, line->shape.line.y1,
+           line->shape.line.x2, line->shape.line.y2);
+    printf(BOLD WHITE " Fill: " RESET "%d/%d/%d  " BOLD WHITE "Stroke: " RESET "%d/%d/%d  " BOLD WHITE "Angle: " RESET "%d°\n",
+           line->shape.line.style.RF, line->shape.line.style.GF, line->shape.line.style.BF,
+           line->shape.line.style.RS, line->shape.line.style.GS, line->shape.line.style.BS,
+           line->shape.line.style.angle);
+    HeaderLine();
 }
 
-void getShape(ListNodePoly *poly, ShapeType type) {
-    printf("\n╔════════════════════════════════════════╗\n");
-    switch (type) {
-        case POLYGONE:
-            printf("║           🔷 POLYGON POINTS             ║\n");
-            break;
-        case STRLINE:
-            printf("║          🔹 POLYLINE POINTS             ║\n");
-            break;
-        default:
-            printf("║            UNKNOWN SHAPE               ║\n");
-            break;
-    }
-    printf("╠════════════════════════════════════════╣\n");
+void getShape(ListNodePoly *poly, ShapeType type, int index) {
+    if(type == POLYGONE) printf(BOLD MAGENTA "▲ POLYGON POINTS #%d\n" RESET, index);
+    else if(type == STRLINE) printf(BOLD MAGENTA "─ POLYLINE POINTS #%d\n" RESET, index);
 
-    ListNodePoly *current = poly;
     int i = 1;
-    while (current != NULL) {
-        printf("║ Point #%d → (x = %d, y = %d)\n", i, current->value->x, current->value->y);
-        current = current->next;
-        i++;
+    ListNodePoly *current = poly;
+    while(current) {
+        printf(BOLD WHITE " Point #%d: " RESET "(x=%d, y=%d)\n", i, current->value->x, current->value->y);
+        current = current->next; i++;
     }
-    printf("╚════════════════════════════════════════╝\n");
+    HeaderLine();
 }
 
-void getPath(ListNodePath *path) {
-    printf("\n╔════════════════════════════════════════╗\n");
-    printf("║              🧭 PATH COMMANDS          ║\n");
-    printf("╠════════════════════════════════════════╣\n");
-    printf("║ Order sequence:                        \n║   ");
-
-    ListNodePath *current = path;
-    while (current != NULL) {
-        char c = current->path->orderType;
-        switch (c) {
-            case 'M': printf("M %d %d  ", current->path->order.mv.x, current->path->order.mv.y); break;
-            case 'L': printf("L %d %d  ", current->path->order.lp.x, current->path->order.lp.y); break;
-            case 'H': printf("H %d  ", current->path->order.h.x); break;
-            case 'V': printf("V %d  ", current->path->order.v.y); break;
-            case 'C': printf("C %d %d  %d %d  %d %d  ",
-                current->path->order.c.x1, current->path->order.c.y1,
-                current->path->order.c.x2, current->path->order.c.y2,
-                current->path->order.c.x3, current->path->order.c.y3);
-                break;
-            case 'S': printf("S %d %d  %d %d  ",
-                current->path->order.sc.x1, current->path->order.sc.y1,
-                current->path->order.sc.x2, current->path->order.sc.y2);
-                break;
-            case 'Q': printf("Q %d %d  %d %d  ",
-                current->path->order.qc.x1, current->path->order.qc.y1,
-                current->path->order.qc.x2, current->path->order.qc.y2);
-                break;
-            case 'T': printf("T %d %d  ",
-                current->path->order.sq.x, current->path->order.sq.y);
-                break;
+void getPath(ListNodePath *path, int index) {
+    printf(BOLD YELLOW "✦ PATH COMMANDS #%d\n" RESET, index);
+    ListNodePath *cur = path;
+    while(cur) {
+        char c = cur->path->orderType;
+        switch(c) {
+            case 'M': printf("M %d %d  ", cur->path->order.mv.x, cur->path->order.mv.y); break;
+            case 'L': printf("L %d %d  ", cur->path->order.lp.x, cur->path->order.lp.y); break;
+            case 'H': printf("H %d  ", cur->path->order.h.x); break;
+            case 'V': printf("V %d  ", cur->path->order.v.y); break;
+            case 'C': printf("C %d %d %d %d %d %d  ",
+                              cur->path->order.c.x1, cur->path->order.c.y1,
+                              cur->path->order.c.x2, cur->path->order.c.y2,
+                              cur->path->order.c.x3, cur->path->order.c.y3); break;
+            case 'S': printf("S %d %d %d %d  ",
+                              cur->path->order.sc.x1, cur->path->order.sc.y1,
+                              cur->path->order.sc.x2, cur->path->order.sc.y2); break;
+            case 'Q': printf("Q %d %d %d %d  ",
+                              cur->path->order.qc.x1, cur->path->order.qc.y1,
+                              cur->path->order.qc.x2, cur->path->order.qc.y2); break;
+            case 'T': printf("T %d %d  ", cur->path->order.sq.x, cur->path->order.sq.y); break;
             default: break;
         }
-        current = current->next;
+        cur = cur->next;
     }
-    printf("\n╚════════════════════════════════════════╝\n");
+    printf("\n");
+    HeaderLine();
 }
 
+// === INTEGRER INPUT ===
 int getInt(void) {
-    int variable;
-    bool isFinish = false;
-    while (!isFinish) {
-        if (scanf("%d", &variable) == 1 && variable >= 0 && variable <= 200) {
-            isFinish = true;
+    int value;
+
+    while (true) {
+        // Prompt coloré et vif
+        printf(BOLD CYAN "➤ " RESET);
+
+        if (scanf("%d", &value) == 1 && value >= 0 && value <= 300) {
+            while(getchar() != '\n'); // vider le buffer
+            return value;
         } else {
-            printf("⚠️  Invalid value! Try again.\n");
-            while (getchar() != '\n'); // clear input buffer
+            while(getchar() != '\n'); // vider le buffer
+            // Message d'erreur vibrant
+            printf(BOLD RED "✖ Invalid input!" RESET " Please enter a number " BOLD YELLOW "0–300" RESET "\n");
         }
     }
-    return variable;
 }
 
-// --- Input Functions ---
+// X/Y/Width/Height/Range inputs
+int getXCoord() { printf(BOLD MAGENTA "X> " RESET); return getInt(); }
+int getYCoord() { printf(BOLD MAGENTA "Y> " RESET); return getInt(); }
+int getWIDTHCoord() { printf(BOLD YELLOW "WIDTH> " RESET); return getInt(); }
+int getHEIGHTCoord() { printf(BOLD YELLOW "HEIGHT> " RESET); return getInt(); }
+int getRange() { printf(BOLD GREEN "RANGE> " RESET); return getInt(); }
 
-int getXCoord() {
-    int variable;
-    printf("\n┌─────────────────────────────┐\n");
-    printf("│  ✦ Enter the X coordinate:  │\n");
-    printf("└─────────────────────────────┘\n> ");
-    variable = getInt();
-    return variable;
-}
-
-int getYCoord() {
-    int variable;
-    printf("\n┌─────────────────────────────┐\n");
-    printf("│  ✦ Enter the Y coordinate:  │\n");
-    printf("└─────────────────────────────┘\n> ");
-    variable = getInt();
-    return variable;
-}
-
-int getWIDTHCoord() {
-    int variable;
-    printf("\n┌─────────────────────────────┐\n");
-    printf("│  ✦ Enter the width:         │\n");
-    printf("└─────────────────────────────┘\n> ");
-    variable = getInt();
-    return variable;
-}
-
-int getHEIGHTCoord() {
-    int variable;
-    printf("\n┌─────────────────────────────┐\n");
-    printf("│  ✦ Enter the height:        │\n");
-    printf("└─────────────────────────────┘\n> ");
-    variable = getInt();
-    return variable;
-}
-
-int getRange() {
-    int variable;
-    printf("\n┌─────────────────────────────┐\n");
-    printf("│  ✦ Enter the range:         │\n");
-    printf("└─────────────────────────────┘\n> ");
-    variable = getInt();
-    return variable;
-}
-
-// --- Character Input ---
-
+// Char input
 char getChar() {
-    char var;
-    scanf(" %c", &var);
-    return var;
+    char c;
+    printf(BOLD CYAN "➤ " RESET);
+    scanf(" %c", &c);
+    while(getchar() != '\n');
+    return c;
 }
 
-// --- Boolean Prompt ---
-
+// Boolean prompt
 bool getBool() {
-    char answer;
-    bool valid = false;
-
-    while (!valid) {
-        printf("\n╭──────────────────────────────╮\n");
-        printf("│  ↺ Continue the process ?    │\n");
-        printf("│  (Y = yes / N = no)          │\n");
-        printf("╰──────────────────────────────╯\n> ");
-
-        answer = getChar();
-
-        if (answer == 'y' || answer == 'Y') {
-            valid = true;
-            return false; // Continue
-        }
-        else if (answer == 'n' || answer == 'N') {
-            valid = true;
-            return true; // Stop
-        }
-        else {
-            printf("\n⚠️  Invalid input! Please type 'y' or 'n'.\n");
-        }
+    while(true) {
+        printf(BOLD MAGENTA "❓ Continue ? (Y(/N): " RESET);
+        char c = getChar();
+        if(c == 'y' || c == 'Y') return false;
+        else if(c == 'n' || c == 'N') return true;
+        else printf(BOLD RED "✖ Invalid choice!" RESET " Enter Y(Yes) or N(No).\n");
     }
-    return false;
 }

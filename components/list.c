@@ -77,15 +77,15 @@ void getList(List *list)
         break;
     case POLYGONE:
         ListNodePoly *currentPoly = current->data->shape.poly->list;
-        getShape(currentPoly,current->data->type);
+        getShape(currentPoly,current->data->type, i);
         break;
     case STRLINE:
         ListNodePoly *currentLineStr = current->data->shape.poly->list;
-        getShape(currentLineStr,current->data->type);
+        getShape(currentLineStr,current->data->type, i);
         break;
     case PATH:
         ListNodePath *currentPath = current->data->shape.path->list;
-        getPath(currentPath);
+        getPath(currentPath, i);
         break;
     case GROUP :
         break;
@@ -95,4 +95,19 @@ void getList(List *list)
     }
     current = current->next;
     }
+}
+
+
+void freeList(List *list)
+{
+    ListNode *current = list->form;
+    ListNode *next;
+    while (current != NULL)
+    {
+        next = current->next;
+        free(current->data);
+        free(current);
+        current = next;
+    }
+    free(list);
 }

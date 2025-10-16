@@ -76,7 +76,6 @@ Data *createLine() {
   new_line->shape.line.y2 = getYCoord();
   new_line->shape.line.style = createStrokeStyle(&new_line->shape.line.style);
   new_line->shape.line.style = createAngleStyle(&new_line->shape.line.style);
-  new_line->shape.line.style = createFillStyle(&new_line->shape.line.style);
   new_line->shape.line.style.translate = createTranslateStyle(&new_line->shape.line.style);
   new_line->type = LINE;
   return new_line;

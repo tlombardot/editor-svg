@@ -1,79 +1,96 @@
-
 #include "../config/struct.h"
 #include "../components/get.h"
 #include <stdio.h>
+#include "../utils/windows_user.h"
 
+// Tron neon colors
+#define RESET       "\x1b[0m"
+#define BOLD        "\x1b[1m"
+#define DIM         "\x1b[2m"
+
+#define RED         "\x1b[91m"
+#define GREEN       "\x1b[92m"
+#define YELLOW      "\x1b[93m"
+#define BLUE        "\x1b[94m"
+#define MAGENTA     "\x1b[95m"
+#define CYAN        "\x1b[96m"
+#define WHITE       "\x1b[97m"
+
+
+
+// --- FILL STYLE ---
 Style createFillStyle(Style *style) {
-    printf("\n╔════════════════════════════════════════╗\n");
-    printf("║           🎨 FILL COLOR STYLE          ║\n");
-    printf("╠════════════════════════════════════════╣\n");
-    printf("║  Enter RGB values for the FILL color:  ║\n");
-    printf("╚════════════════════════════════════════╝\n");
+    slowPrint(BOLD MAGENTA "◆ FILL COLOR STYLE ◆\n" RESET, 2);
+    HeaderLine();
 
-    printf("🔴  Red (0–200): ➤ ");
+    slowPrint(CYAN "Enter RGB values for fill color (0–200):\n" RESET, 1);
+
+    slowPrint(YELLOW " Red   : " RESET, 1);
     style->RF = getInt();
-
-    printf("🟢  Green (0–200): ➤ ");
+    slowPrint(YELLOW " Green : " RESET, 1);
     style->GF = getInt();
-
-    printf("🔵  Blue (0–200): ➤ ");
+    slowPrint(YELLOW " Blue  : " RESET, 1);
     style->BF = getInt();
 
-    printf("\n✅ Fill color successfully set to RGB(%d, %d, %d)\n",
-           style->RF, style->GF, style->BF);
+    char msg[128];
+    sprintf(msg, BOLD GREEN "✓ Fill color set: " RESET MAGENTA "RGB(%d, %d, %d)\n",
+            style->RF, style->GF, style->BF);
+    slowPrint(msg, 2);
+    HeaderLine();
     return *style;
 }
 
 Style createStrokeStyle(Style *style) {
-    printf("\n╔════════════════════════════════════════╗\n");
-    printf("║          ✏️  STROKE COLOR STYLE         ║\n");
-    printf("╠════════════════════════════════════════╣\n");
-    printf("║  Enter RGB values for the STROKE color:║\n");
-    printf("╚════════════════════════════════════════╝\n");
+    slowPrint(BOLD MAGENTA "◆ STROKE COLOR STYLE ◆\n" RESET, 2);
+    HeaderLine();
 
-    printf("🔴  Red (0–200): ➤ ");
+    slowPrint(CYAN "Enter RGB values for stroke color (0–200):\n" RESET, 1);
+
+    slowPrint(YELLOW " Red   : " RESET, 1);
     style->RS = getInt();
-
-    printf("🟢  Green (0–200): ➤ ");
+    slowPrint(YELLOW " Green : " RESET, 1);
     style->GS = getInt();
-
-    printf("🔵  Blue (0–200): ➤ ");
+    slowPrint(YELLOW " Blue  : " RESET, 1);
     style->BS = getInt();
 
-    printf("\n✅ Stroke color successfully set to RGB(%d, %d, %d)\n",
-           style->RS, style->GS, style->BS);
+    char msg[128];
+    sprintf(msg, BOLD GREEN "✓ Stroke color set: " RESET MAGENTA "RGB(%d, %d, %d)\n",
+            style->RS, style->GS, style->BS);
+    slowPrint(msg, 2);
+    HeaderLine();
     return *style;
 }
 
 Style createAngleStyle(Style *style) {
-    printf("\n╔════════════════════════════════════════╗\n");
-    printf("║             🌀 ANGLE STYLE             ║\n");
-    printf("╠════════════════════════════════════════╣\n");
-    printf("║  Define the rotation angle of shape    ║\n");
-    printf("╚════════════════════════════════════════╝\n");
+    slowPrint(BOLD MAGENTA "◆ ANGLE STYLE ◆\n" RESET, 2);
+    HeaderLine();
 
-    printf("↩️  Enter angle (0–200): ➤ ");
+    slowPrint(CYAN "Enter rotation angle (0–200): " RESET, 1);
     style->angle = getInt();
 
-    printf("\n✅ Angle successfully set to %d°\n", style->angle);
+    char msg[128];
+    sprintf(msg, BOLD GREEN "✓ Angle set to: " RESET MAGENTA "%d°\n", style->angle);
+    slowPrint(msg, 2);
+    HeaderLine();
     return *style;
 }
 
 Translate createTranslateStyle(Style *style) {
     Translate translate = style->translate;
-    printf("\n╔════════════════════════════════════════╗\n");
-    printf("║             🚀 TRANSLATE STYLE         ║\n");
-    printf("╠════════════════════════════════════════╣\n");
-    printf("║  Define the translation of shape       ║\n");
-    printf("╚════════════════════════════════════════╝\n");
 
-    printf("↩️  Enter x translation (0–200): ➤ ");
+    slowPrint(BOLD MAGENTA "◆ TRANSLATE STYLE ◆\n" RESET, 2);
+    HeaderLine();
+
+    slowPrint(YELLOW " X translation (0–200): " RESET, 1);
     translate.x = getInt();
-
-    printf("↩️  Enter y translation (0–200): ➤ ");
+    slowPrint(YELLOW " Y translation (0–200): " RESET, 1);
     translate.y = getInt();
 
-    printf("\n✅ Translation successfully set to (%d, %d)\n", translate.x, translate.y);
+    char msg[128];
+    sprintf(msg, BOLD GREEN "✓ Translation set: " RESET MAGENTA "(%d, %d)\n", translate.x, translate.y);
+    slowPrint(msg, 2);
+    HeaderLine();
+
     style->translate = translate;
     return translate;
 }

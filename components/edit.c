@@ -4,19 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../utils/windows_user.h"
-
-// Style colors
-#define RESET       "\x1b[0m"
-#define BOLD        "\x1b[1m"
-#define DIM         "\x1b[2m"
-
-#define RED         "\x1b[91m"
-#define GREEN       "\x1b[92m"
-#define YELLOW      "\x1b[93m"
-#define BLUE        "\x1b[94m"
-#define MAGENTA     "\x1b[95m"
-#define CYAN        "\x1b[96m"
-#define WHITE       "\x1b[97m"
+#include "../config/color.h"
 
 void editX(Data * data){
     switch (data->type) {

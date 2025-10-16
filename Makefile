@@ -1,5 +1,5 @@
 CC      := gcc
-CFLAGS  := -std=c99 -Wall -Werror -Wextra -g -O0 -lSDL2 -lm
+CFLAGS  := -std=c99 -Wall -Werror -Wextra -g -O0
 TARGET  := bin/main
 SRC     := main.c \
 			components/create.c \

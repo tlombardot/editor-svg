@@ -7,21 +7,8 @@
 #include "../config/struct.h"
 #include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include "../utils/windows_user.h"
-
-// Style colors
-#define RESET       "\x1b[0m"
-#define BOLD        "\x1b[1m"
-#define DIM         "\x1b[2m"
-
-#define RED         "\x1b[91m"
-#define GREEN       "\x1b[92m"
-#define YELLOW      "\x1b[93m"
-#define BLUE        "\x1b[94m"
-#define MAGENTA     "\x1b[95m"
-#define CYAN        "\x1b[96m"
-#define WHITE       "\x1b[97m"
+#include "../config/color.h"
 
 
 
@@ -132,16 +119,13 @@ int getInt(void) {
     int value;
 
     while (true) {
-        // Prompt coloré et vif
-        printf(BOLD CYAN "➤ " RESET);
 
         if (scanf("%d", &value) == 1 && value >= 0 && value <= 300) {
-            while(getchar() != '\n'); // vider le buffer
+            while(getchar() != '\n');
             return value;
         } else {
-            while(getchar() != '\n'); // vider le buffer
-            // Message d'erreur vibrant
-            printf(BOLD RED "✖ Invalid input!" RESET " Please enter a number " BOLD YELLOW "0–300" RESET "\n");
+            while(getchar() != '\n');
+            printf(BOLD MAGENTA "Invalid input!" RESET " Please enter a number " BOLD YELLOW "0–300" RESET "\n");
         }
     }
 }
@@ -156,7 +140,6 @@ int getRange() { printf(BOLD GREEN "RANGE> " RESET); return getInt(); }
 // Char input
 char getChar() {
     char c;
-    printf(BOLD CYAN "➤ " RESET);
     scanf(" %c", &c);
     while(getchar() != '\n');
     return c;
@@ -165,10 +148,10 @@ char getChar() {
 // Boolean prompt
 bool getBool() {
     while(true) {
-        printf(BOLD MAGENTA "❓ Continue ? (Y(/N): " RESET);
+        printf(BOLD YELLOW "Continue ? (Y(/N): " RESET);
         char c = getChar();
         if(c == 'y' || c == 'Y') return false;
         else if(c == 'n' || c == 'N') return true;
-        else printf(BOLD RED "✖ Invalid choice!" RESET " Enter Y(Yes) or N(No).\n");
+        else printf(BOLD MAGENTA "Invalid choice!" RESET YELLOW " Enter Y(es) or N(o).\n");
     }
 }

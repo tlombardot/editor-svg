@@ -2,12 +2,7 @@
 #include "../components/get.h"
 #include "../config/path.h"
 #include "windows_user.h"
-
-// neon colors & slow print
-#define CYAN "\x1b[96m"
-#define WHITE "\x1b[97m"
-#define DIM "\x1b[2m"
-#define RESET "\x1b[0m"
+#include "../config/color.h"
 
 Data *interfacePath(Data *path) {
     system("clear");

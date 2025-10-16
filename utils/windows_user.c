@@ -11,19 +11,7 @@
 #include "../components/edit.h"
 #include "../components/remove.h"
 #include "../svg/svg.h"
-
-// Style colors
-#define RESET       "\x1b[0m"
-#define BOLD        "\x1b[1m"
-#define DIM         "\x1b[2m"
-
-#define RED         "\x1b[91m"
-#define GREEN       "\x1b[92m"
-#define YELLOW      "\x1b[93m"
-#define BLUE        "\x1b[94m"
-#define MAGENTA     "\x1b[95m"
-#define CYAN        "\x1b[96m"
-#define WHITE       "\x1b[97m"
+#include "../config/color.h"
 
 // Sleep function (ms)
 void sleep_ms(int milliseconds) {
@@ -41,9 +29,14 @@ void slowPrint(const char *text, int delay_ms) {
     }
 }
 
+void moveCursor(int row, int col) {
+    printf("\033[%d;%dH", row, col);
+    fflush(stdout);
+}
+
 // Header / Separator
 void HeaderLine() {
-    printf(DIM CYAN "───────────────────────────────────────────────\n" RESET);
+    printf( YELLOW "─────────────────────────────────────────\n" RESET);
 }
 
 // === MAIN MENU ===
@@ -52,26 +45,24 @@ int getAnswer() {
 
     while (answer < 0 || answer > 6) {
         system("clear");
-
-        slowPrint(DIM CYAN "system> " RESET WHITE "booting main interface...\n", 3);
-        sleep_ms(300);
-        slowPrint(DIM CYAN "system> " RESET WHITE "ready.\n\n", 3);
-
-        HeaderLine();
-        slowPrint(BOLD CYAN "          ██████ MAIN MENU ██████          \n\n", 3);
-        slowPrint(YELLOW " [1] " MAGENTA "Create a new SVG shape\n", 3);
-        slowPrint(YELLOW " [2] " MAGENTA "Edit an existing SVG\n", 3);
-        slowPrint(YELLOW " [3] " MAGENTA "Remove an SVG\n", 3);
-        slowPrint(YELLOW " [4] " MAGENTA "Export SVG to file\n", 3);
-        slowPrint(YELLOW " [5] " MAGENTA "Import SVG from file\n", 3);
-        slowPrint(YELLOW " [6] " MAGENTA "Display current SVG list\n", 3);
-        slowPrint(YELLOW " [0] " RED "Exit program\n\n" RESET,3);
-        HeaderLine();
-
-        printf(BOLD CYAN "INPUT> " RESET);
+        printf("\n");
+            printf(YELLOW"  █▀▄▀█ ▄▀█ █ █▄░█  █▀▄▀█ █▀▀ █▄░█ █░█\n");
+            printf("  █░▀░█ █▀█ █ █░▀█  █░▀░█ ██▄ █░▀█ █▄█\n\n");
+            HeaderLine();
+            printf("\n");
+            printf(YELLOW"(1)..................Create new SVG shape\n");
+            printf(YELLOW"(2).....................Edit existing SVG\n");
+            printf(YELLOW"(3)............................Remove SVG\n");
+            printf(YELLOW"(4)....................Export SVG to file\n");
+            printf(YELLOW"(5)..................Import SVG from file\n");
+            printf(YELLOW"(6)......................Display SVG list\n");
+            printf(MAGENTA"(0)..........................Exit program\n\n");
+            HeaderLine();
+            printf("\n");
+        printf( YELLOW "INPUT> " RESET);
         if(scanf("%d", &answer) != 1) {
             while(getchar() != '\n'); // clear invalid input
-            slowPrint(RED "\nERROR> Invalid input! Only numbers 0–6.\n\n" RESET, 2);
+            printf(MAGENTA "\nERROR> Invalid input! Only numbers 0–6.\n\n" RESET);
             sleep_ms(600);
             answer = -1;
             continue;
@@ -79,35 +70,86 @@ int getAnswer() {
         while(getchar() != '\n'); // Clear input buffer
 
         if (answer < 0 || answer > 6) {
-            slowPrint(RED "\nERROR> Selection out of range! Choose 0–6.\n\n" RESET, 2);
+            printf(MAGENTA "\nERROR> Selection out of range! Choose 0–6.\n\n" RESET);
             sleep_ms(600);
         }
     }
-
     return answer;
 }
 
 // === CREATE INTERFACE ===
 void createInterface(List *list) {
     system("clear");
-    slowPrint(DIM CYAN "system> " RESET WHITE "entering CREATE mode...\n\n", 3);
+    printf("\n");
+    printf( YELLOW"    █▀ █░█ ▄▀█ █▀█ █▀▀  █▀█ █▀█ ▀█▀\n");
+    printf(YELLOW"    ▄█ █▀█ █▀█ █▀▀ ██▄  █▄█ █▀▀ ░█░\n\n"RESET);
     HeaderLine();
-    slowPrint(BOLD CYAN "          ┌── SELECT SHAPE ──┐\n\n" RESET, 3);
-
-    slowPrint(BOLD YELLOW " [1] " MAGENTA "Rectangle\n", 3);
-    slowPrint(YELLOW " [2] " MAGENTA "Square\n", 3);
-    slowPrint(YELLOW " [3] " MAGENTA "Line\n", 3);
-    slowPrint(YELLOW " [4] " MAGENTA "Circle\n", 3);
-    slowPrint(YELLOW " [5] " MAGENTA "Ellipse\n", 3);
-    slowPrint(YELLOW " [6] " MAGENTA "Polygon\n", 3);
-    slowPrint(YELLOW " [7] " MAGENTA "Polyline\n", 3);
-    slowPrint(YELLOW " [8] " MAGENTA "Path\n", 3);
-    slowPrint(YELLOW " [9] " MAGENTA "Group\n", 3);
-    slowPrint(YELLOW " [0] " RED "Back to Main Menu\n\n" RESET,3);
-
+    printf("\n");
+    printf(YELLOW"(1).............................Rectangle\n");
+    printf(YELLOW"(2)................................Square\n");
+    printf(YELLOW"(3)..................................Line\n");
+    printf(YELLOW"(4)................................Circle\n");
+    printf(YELLOW"(5)...............................Ellipse\n");
+    printf(YELLOW"(6)...............................Polygon\n");
+    printf(YELLOW"(7)..............................Polyline\n");
+    printf(YELLOW"(8)..................................Path\n");
+    printf(YELLOW"(9).................................Group\n");
+    printf(MAGENTA"(0).....................Back to Main Menu\n\n");
     HeaderLine();
-    printf(BOLD CYAN "INPUT> " RESET);
+    printf("\n");
+    printf(YELLOW "INPUT> " RESET);
     int answer = getInt();
+    if (answer == 1){
+        moveCursor(7, 1);
+        printf(BLINK_SLOW YELLOW"(1).............................Rectangle\n"RESET);
+        moveCursor(20, 1);
+        if (getBool() == true){return createInterface(list);}
+    }else if(answer == 2){
+        moveCursor(8, 1);
+        printf(BLINK_SLOW YELLOW"(2)................................Square\n"RESET);
+        moveCursor(20, 1);
+        if (getBool() == true){return createInterface(list);}
+    }else if(answer == 3){
+        moveCursor(9, 1);
+        printf(BLINK_SLOW YELLOW"(3)..................................Line\n"RESET);
+        moveCursor(20, 1);
+        if (getBool() == true){return createInterface(list);}
+    }else if(answer == 4){
+        moveCursor(10, 1);
+        printf(BLINK_SLOW YELLOW"(4)................................Circle\n"RESET);
+        moveCursor(20, 1);
+        if (getBool() == true){return createInterface(list);}
+    }else if(answer == 5){
+        moveCursor(11, 1);
+        printf(BLINK_SLOW YELLOW"(5)...............................Ellipse\n"RESET);
+        moveCursor(20, 1);
+        if (getBool() == true){return createInterface(list);}
+    }else if(answer == 6){
+        moveCursor(12, 1);
+        printf(BLINK_SLOW YELLOW"(6)...............................Polygon\n"RESET);
+        moveCursor(20, 1);
+        if (getBool() == true){return createInterface(list);}
+    }else if(answer == 7){
+        moveCursor(13, 1);
+        printf(BLINK_SLOW YELLOW"(7)..............................Polyline\n"RESET);
+        moveCursor(20, 1);
+        if (getBool() == true){return createInterface(list);}
+    }else if(answer == 8){
+        moveCursor(14, 1);
+        printf(BLINK_SLOW YELLOW"(8)..................................Path\n"RESET);
+        moveCursor(20, 1);
+        if (getBool() == true){return createInterface(list);}
+    }else if(answer == 9){
+        moveCursor(15, 1);
+        printf(BLINK_SLOW YELLOW"(9).................................Group\n"RESET);
+        moveCursor(20, 1);
+        if (getBool() == true){return createInterface(list);}
+    }else if(answer == 0){
+        moveCursor(16, 1);
+        printf(BLINK_SLOW MAGENTA"(0).....................Back to Main Menu\n"RESET);
+        moveCursor(20, 1);
+        if (getBool() == true){return createInterface(list);}
+    }
 
     Data *shape = NULL;
     switch (answer) {
@@ -124,17 +166,17 @@ void createInterface(List *list) {
             shape->shape.group->grouplist = userInterface();
             break;
         case 0:
-            slowPrint(CYAN "\nsystem> " RESET WHITE "returning to main menu...\n", 2);
+            printf(YELLOW "\nsystem> " RESET WHITE "returning to main menu...\n");
             sleep_ms(500);
             return;
         default:
-            slowPrint(RED "\nsystem> " RESET WHITE "unknown selection.\n", 2);
+            printf(MAGENTA "\nsystem> " RESET WHITE "unknown selection.\n");
             return;
     }
 
     if (shape != NULL) {
         list = appendList(list, shape);
-        slowPrint(GREEN "\nsystem> " RESET WHITE "shape created successfully.\n", 3);
+        printf(YELLOW "\nsystem> " RESET WHITE "shape created successfully.\n");
     }
 
     HeaderLine();
@@ -154,13 +196,13 @@ List *userInterface() {
             case 2:
                 int choice_edit;
                 if (list->lenght == 0) {
-                    slowPrint(RED "system> " RESET BLUE "no shapes to edit.\n", 2);
+                    printf(MAGENTA "system> " RESET BLUE "no shapes to edit.\n");
                     break;
                 }
                 printf(RESET WHITE "shape index to edit (0–%d): ", list->lenght - 1);
                 do {
                     choice_edit = getInt();
-                    slowPrint(RED "system> " RESET WHITE "invalid input.\n", 2);
+                    printf(MAGENTA "system> " RESET WHITE "invalid input.\n");
                 }while (choice_edit < 0 || choice_edit >= list->lenght);
                 editShape(list, choice_edit);
                 break;
@@ -168,61 +210,64 @@ List *userInterface() {
             case 3:
                 int choice_remove;
                 if (list->lenght == 0) {
-                    slowPrint(RED "system> " RESET WHITE "no shapes to delete.\n", 2);
+                    printf(MAGENTA "system> " RESET WHITE "no shapes to delete.\n");
                     break;
                 }
-                printf(BOLD CYAN "INPUT> " RESET WHITE "shape index to remove (0–%d): ", list->lenght - 1);
+                printf(YELLOW "INPUT> " RESET WHITE "shape index to remove (0–%d): ", list->lenght - 1);
                 do {
                     choice_remove = getInt();
-                    slowPrint(RED "system> " RESET WHITE "invalid input.\n", 2);
+                    printf(MAGENTA "system> " RESET WHITE "invalid input.\n");
                 }while (choice_remove < 0 || choice_remove >= list->lenght);
                 list = removeShape(list, choice_remove);
-                slowPrint(GREEN "system> " RESET WHITE "shape removed successfully.\n", 2);
+                printf(YELLOW "system> " RESET WHITE "shape removed successfully.\n");
                 break;
 
             case 4:
                 if (list->lenght == 0) {
-                    slowPrint(RED "system> " RESET WHITE "no shapes to export.\n", 2);
+                    printf(MAGENTA "system> " RESET WHITE "no shapes to export.\n");
                     break;
                 }
                 int choice_export;
                 do {
-                    printf(BOLD CYAN "INPUT> " RESET WHITE "shape index to export (0–%d): ", list->lenght - 1);
+                    printf(YELLOW "INPUT> " RESET WHITE "shape index to export (0–%d): ", list->lenght - 1);
                     choice_export = getInt();
                     if (choice_export < 0 || choice_export >= list->lenght) {
-                        slowPrint(RED "system> " RESET WHITE "invalid input.\n", 2);
+                        printf(MAGENTA "system> " RESET WHITE "invalid input.\n");
                     }
                 }while (choice_export < 0 || choice_export >= list->lenght);
-                slowPrint(CYAN "system> " RESET WHITE "exporting SVG to file...\n", 2);
+                printf(YELLOW "system> " RESET WHITE "exporting SVG to file...\n");
                 exportSVG("test.svg", list, choice_export);
                 break;
 
             case 5:
-                slowPrint(CYAN "system> " RESET WHITE "importing SVG from file...\n", 2);
+                printf(YELLOW "system> " RESET WHITE "importing SVG from file...\n");
                 break;
 
             case 6:
-                slowPrint(CYAN "system> " RESET WHITE "displaying SVG list...\n\n", 2);
+                printf(YELLOW "system> " RESET WHITE "displaying SVG list...\n\n");
                 getList(list);
                 break;
 
             case 0:
                 system("clear");
-                slowPrint(DIM CYAN "system> " RESET WHITE "shutting down...\n", 3);
+                printf(YELLOW "system> " RESET WHITE "shutting down...\n");
                 sleep_ms(500);
-                slowPrint(BLUE "goodbye user.\n" RESET, 3);
+                printf(YELLOW "goodbye user.\n" RESET);
+                sleep_ms(500);
                 system("clear");
                 freeList(list);
-                HeaderLine();
-                slowPrint(GREEN"|                MEMORY FREED                 |\n"RESET, 3);
-                HeaderLine();
+                printf(YELLOW"███╗░░░███╗███████╗███╗░░░███╗░█████╗░██████╗░██╗░░░██╗  ███████╗██████╗░███████╗███████╗██████╗░\n");
+                printf("████╗░████║██╔════╝████╗░████║██╔══██╗██╔══██╗╚██╗░██╔╝  ██╔════╝██╔══██╗██╔════╝██╔════╝██╔══██╗\n");
+                printf("██╔████╔██║█████╗░░██╔████╔██║██║░░██║██████╔╝░╚████╔╝░  █████╗░░██████╔╝█████╗░░█████╗░░██║░░██║\n");
+                printf("██║╚██╔╝██║██╔══╝░░██║╚██╔╝██║██║░░██║██╔══██╗░░╚██╔╝░░  ██╔══╝░░██╔══██╗██╔══╝░░██╔══╝░░██║░░██║\n");
+                printf("██║░╚═╝░██║███████╗██║░╚═╝░██║╚█████╔╝██║░░██║░░░██║░░░  ██║░░░░░██║░░██║███████╗███████╗██████╔╝\n");                    printf("╚═╝░░░░░╚═╝╚══════╝╚═╝░░░░░╚═╝░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░  ╚═╝░░░░░╚═╝░░╚═╝╚══════╝╚══════╝╚═════╝░\n");
                 return NULL;
             default:
-                slowPrint(RED "system> " RESET WHITE "invalid input.\n", 2);
+                printf(MAGENTA "system> " RESET WHITE "invalid input.\n");
                 break;
         }
 
-        slowPrint(DIM CYAN "\npress ENTER to continue..." RESET, 1);
+        printf(YELLOW "\npress ENTER to continue..." RESET);
         getchar();
         answer = getAnswer();
     }

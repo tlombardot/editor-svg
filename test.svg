@@ -1,5 +1,5 @@
 <svg height="600" width="800" xmlns="http://www.w3.org/2000/svg">
-<rect x="25" y="65" width="48" height="32" fill="rgb(95,75,25)" />
+<rect x="25" y="65" width="65" height="54" fill="rgb(25,25,21)" />
 <script type="application/ecmascript"><![CDATA[
     setInterval(function () {
       location.reload();

@@ -2,19 +2,7 @@
 #include <stdio.h>
 #include "../config/struct.h"
 #include "../components/list.h"
-
-// Style colors
-#define RESET       "\x1b[0m"
-#define BOLD        "\x1b[1m"
-#define DIM         "\x1b[2m"
-
-#define RED         "\x1b[91m"
-#define GREEN       "\x1b[92m"
-#define YELLOW      "\x1b[93m"
-#define BLUE        "\x1b[94m"
-#define MAGENTA     "\x1b[95m"
-#define CYAN        "\x1b[96m"
-#define WHITE       "\x1b[97m"
+#include "../config/color.h"
 
 
 void exportSVG(char *filename, List *list, int index) {

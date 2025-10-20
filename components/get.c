@@ -3,10 +3,6 @@
 #include "../config/struct.h"
 #include <stdbool.h>
 #include <stdio.h>
-#include "get.h"
-#include "../config/struct.h"
-#include <stdbool.h>
-#include <stdio.h>
 #include "../utils/windows_user.h"
 #include "../config/color.h"
 
@@ -86,7 +82,7 @@ void getShape(ListNodePoly *poly, ShapeType type, int index) {
 }
 
 void getPath(ListNodePath *path, int index) {
-    printf(BOLD YELLOW "✦ PATH COMMANDS #%d\n" RESET, index);
+    printf( YELLOW "✦ PATH COMMANDS #%d\n" RESET, index);
     ListNodePath *cur = path;
     while(cur) {
         char c = cur->path->orderType;
@@ -114,28 +110,36 @@ void getPath(ListNodePath *path, int index) {
     HeaderLine();
 }
 
+void getGroup(Group *group) {
+    printf("Group\n");
+    HeaderLine();
+    getList(group->grouplist);
+}
+
+
+
 // === INTEGRER INPUT ===
-int getInt(void) {
+int getInt(int min, int max) {
     int value;
 
     while (true) {
 
-        if (scanf("%d", &value) == 1 && value >= 0 && value <= 300) {
+        if (scanf("%d", &value) == 1 && value >= min && value <= max) {
             while(getchar() != '\n');
             return value;
         } else {
             while(getchar() != '\n');
-            printf(BOLD MAGENTA "Invalid input!" RESET " Please enter a number " BOLD YELLOW "0–300" RESET "\n");
+            printf(BOLD MAGENTA "Invalid input!" RESET " Please enter a number " BOLD YELLOW "%d–%d" RESET "\n",min, max);
         }
     }
 }
 
 // X/Y/Width/Height/Range inputs
-int getXCoord() { printf(BOLD MAGENTA "X> " RESET); return getInt(); }
-int getYCoord() { printf(BOLD MAGENTA "Y> " RESET); return getInt(); }
-int getWIDTHCoord() { printf(BOLD YELLOW "WIDTH> " RESET); return getInt(); }
-int getHEIGHTCoord() { printf(BOLD YELLOW "HEIGHT> " RESET); return getInt(); }
-int getRange() { printf(BOLD GREEN "RANGE> " RESET); return getInt(); }
+int getXCoord() { printf(BOLD MAGENTA "X> " RESET); return getInt(0,600); }
+int getYCoord() { printf(BOLD MAGENTA "Y> " RESET); return getInt(0,300); }
+int getWIDTHCoord() { printf(BOLD YELLOW "WIDTH> " RESET); return getInt(0,200); }
+int getHEIGHTCoord() { printf(BOLD YELLOW "HEIGHT> " RESET); return getInt(0,100); }
+int getRange() { printf(BOLD GREEN "RANGE> " RESET); return getInt(0,300); }
 
 // Char input
 char getChar() {
@@ -143,6 +147,12 @@ char getChar() {
     scanf(" %c", &c);
     while(getchar() != '\n');
     return c;
+}
+
+char *getString() {
+    char *stri = malloc(sizeof(char) * 100);
+    scanf(" %s", stri);
+    return  stri;
 }
 
 // Boolean prompt

@@ -117,9 +117,8 @@ Data *createShapeless(ShapeType type) {
 
 void freeShapeless(Data *shapeless) {
     ListNodePoly *current = shapeless->shape.poly->list;
-    ListNodePoly *next;
     while (current != NULL) {
-        next = current->next;
+        ListNodePoly *next = current->next;
         free(current->value);
         free(current);
         current = next;
@@ -151,5 +150,6 @@ void freePath(Data *path) {
 Data *createGroup(){
     Data *new_group = allocateMemoryGroup();
     new_group->type = GROUP;
+    new_group->shape.group->depth = 0;
     return new_group;
 }

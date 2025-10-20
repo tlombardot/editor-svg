@@ -216,6 +216,7 @@ typedef struct
 
  struct Group{
      List *grouplist;
+     int depth;
  };
 
 

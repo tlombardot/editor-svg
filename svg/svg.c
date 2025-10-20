@@ -7,17 +7,17 @@
 
 void exportSVG(char *filename, List *list, int index) {
     if (list == NULL || list->lenght == 0) {
-        printf(BOLD RED "✖ List is empty!" RESET "\n");
+        printf(BOLD RED "List is empty!" RESET "\n");
         return;
     }
     ListNode *current = list->form;
     if (list->lenght > 1){
-        for (int i = 0; i < index - 1; i++)
+        for (int i = 0; i < index; i++)
             current = current->next;
     }
     FILE *file = fopen(filename, "w");
     if (!file) {
-        printf(BOLD RED "✖ Failed to open file!" RESET "\n");
+        printf(BOLD RED "Failed to open file!" RESET "\n");
         return;
     }
 
@@ -68,12 +68,6 @@ void exportSVG(char *filename, List *list, int index) {
 
             break;
     }
-    fprintf(file,"<script type=\"application/ecmascript\"><![CDATA[\n");
-    fprintf(file, "    setInterval(function () {\n");
-          // Force le navigateur à recharger le document
-    fprintf(file, "      location.reload();\n");
-    fprintf(file, "    }, 1000);\n");
-    fprintf(file, "  ]]></script>\n");
     fprintf(file, "</svg>\n");
     fclose(file);
 }

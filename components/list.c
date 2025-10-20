@@ -3,7 +3,6 @@
 #include "get.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include "../config/struct.h"
 
 
@@ -88,6 +87,9 @@ void getList(List *list)
         getPath(currentPath, i);
         break;
     case GROUP :
+
+            Group *group = current->data->shape.group;
+            getGroup(group);
         break;
     default:
         printf("Unknown shape type\n");

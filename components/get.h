@@ -7,7 +7,7 @@ void getRectangle(Data *rectangle, int index);
 void getSquare(Data *square, int index);
 void getEllipse(Data *ellipse, int index);
 void getCircle(Data *circle, int index);
-int getInt();
+int getInt(int min, int max);
 int getXCoord();
 int getYCoord();
 int getWIDTHCoord();
@@ -18,5 +18,7 @@ void getPath(ListNodePath *path, int index);
 char getChar();
 bool getBool();
 void getLine(Data *line, int index);
+char *getString();
+void getGroup(Group *group);
 
 #endif

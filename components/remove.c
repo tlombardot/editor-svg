@@ -51,12 +51,9 @@ List* removeShape(List *list, int id) {
                 }
                 return list;
     }
-    // 🔹 Sinon, parcours jusqu’à l’élément à supprimer
         for (int i = 0; i < id; i++) {
             current = current->next;
         }
-
-        // 🔹 Libère la data selon le type
         switch (current->data->type) {
             case RECTANGLE:
                 freeRectangle(current->data);
@@ -87,7 +84,6 @@ List* removeShape(List *list, int id) {
                 break;
         }
 
-        // 🔹 Reconnecte les voisins
         if (current->previous)
             current->previous->next = current->next;
 

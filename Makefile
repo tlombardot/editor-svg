@@ -13,6 +13,7 @@ SRC     := main.c \
 			components/edit.c \
 			components/remove.c \
 			svg/svg.c \
+			svg/load_svg.c \
 
 
 OBJ     := $(SRC:.c=.o)
@@ -26,6 +27,10 @@ $(TARGET): $(OBJ) | bin
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
+
+leaks: $(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes \
+		--error-exitcode=1 ./$(TARGET)
 
 bin:
 	mkdir -p bin

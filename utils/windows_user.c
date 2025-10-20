@@ -12,6 +12,7 @@
 #include "../components/remove.h"
 #include "../svg/svg.h"
 #include "../config/color.h"
+#include "../svg/load_svg.h"
 
 // Sleep function (ms)
 void sleep_ms(int milliseconds) {
@@ -20,14 +21,6 @@ void sleep_ms(int milliseconds) {
     while (clock() < end) { }
 }
 
-// Slow print effect
-void slowPrint(const char *text, int delay_ms) {
-    for (int i = 0; text[i] != '\0'; i++) {
-        putchar(text[i]);
-        fflush(stdout);
-        sleep_ms(delay_ms);
-    }
-}
 
 void moveCursor(int row, int col) {
     printf("\033[%d;%dH", row, col);
@@ -98,7 +91,7 @@ void createInterface(List *list) {
     HeaderLine();
     printf("\n");
     printf(YELLOW "INPUT> " RESET);
-    int answer = getInt();
+    int answer = getInt(0,9);
     if (answer == 1){
         moveCursor(7, 1);
         printf(BLINK_SLOW YELLOW"(1).............................Rectangle\n"RESET);
@@ -192,7 +185,6 @@ List *userInterface() {
         system("clear");
         switch (answer) {
             case 1: createInterface(list); break;
-
             case 2:
                 int choice_edit;
                 if (list->lenght == 0) {
@@ -201,8 +193,10 @@ List *userInterface() {
                 }
                 printf(RESET WHITE "shape index to edit (0–%d): ", list->lenght - 1);
                 do {
-                    choice_edit = getInt();
-                    printf(MAGENTA "system> " RESET WHITE "invalid input.\n");
+                    choice_edit = getInt(0,list->lenght-1);
+                    if (choice_edit < 0 || choice_edit >= list->lenght) {
+                        printf(MAGENTA "system> " RESET WHITE "invalid input.\n");
+                    }
                 }while (choice_edit < 0 || choice_edit >= list->lenght);
                 editShape(list, choice_edit);
                 break;
@@ -215,9 +209,11 @@ List *userInterface() {
                 }
                 printf(YELLOW "INPUT> " RESET WHITE "shape index to remove (0–%d): ", list->lenght - 1);
                 do {
-                    choice_remove = getInt();
-                    printf(MAGENTA "system> " RESET WHITE "invalid input.\n");
-                }while (choice_remove < 0 || choice_remove >= list->lenght);
+                    choice_remove = getInt(0, list->lenght-1);
+                    if (choice_remove < 0 || choice_remove >= list->lenght) {
+                        printf(MAGENTA "system> " RESET WHITE "invalid input.\n");
+                    }
+                }while (choice_remove < 0 || choice_remove >= list->lenght );
                 list = removeShape(list, choice_remove);
                 printf(YELLOW "system> " RESET WHITE "shape removed successfully.\n");
                 break;
@@ -230,17 +226,26 @@ List *userInterface() {
                 int choice_export;
                 do {
                     printf(YELLOW "INPUT> " RESET WHITE "shape index to export (0–%d): ", list->lenght - 1);
-                    choice_export = getInt();
+                    choice_export = getInt(0, list->lenght-1);
                     if (choice_export < 0 || choice_export >= list->lenght) {
                         printf(MAGENTA "system> " RESET WHITE "invalid input.\n");
                     }
                 }while (choice_export < 0 || choice_export >= list->lenght);
+                printf(YELLOW"INPUT>"RESET WHITE" What's your file name : ");
+                char *filename = getString();
                 printf(YELLOW "system> " RESET WHITE "exporting SVG to file...\n");
-                exportSVG("test.svg", list, choice_export);
+                exportSVG(filename, list, choice_export);
+                free(filename);
+                while(getchar() != '\n');
                 break;
 
             case 5:
+                printf(YELLOW"INPUT>"RESET WHITE" What's your file name : ");
+                char *choice_import = getString();
                 printf(YELLOW "system> " RESET WHITE "importing SVG from file...\n");
+                importSVG(choice_import, list);
+                while(getchar() != '\n');
+                free(choice_import);
                 break;
 
             case 6:
@@ -249,19 +254,7 @@ List *userInterface() {
                 break;
 
             case 0:
-                system("clear");
-                printf(YELLOW "system> " RESET WHITE "shutting down...\n");
-                sleep_ms(500);
-                printf(YELLOW "goodbye user.\n" RESET);
-                sleep_ms(500);
-                system("clear");
-                freeList(list);
-                printf(YELLOW"███╗░░░███╗███████╗███╗░░░███╗░█████╗░██████╗░██╗░░░██╗  ███████╗██████╗░███████╗███████╗██████╗░\n");
-                printf("████╗░████║██╔════╝████╗░████║██╔══██╗██╔══██╗╚██╗░██╔╝  ██╔════╝██╔══██╗██╔════╝██╔════╝██╔══██╗\n");
-                printf("██╔████╔██║█████╗░░██╔████╔██║██║░░██║██████╔╝░╚████╔╝░  █████╗░░██████╔╝█████╗░░█████╗░░██║░░██║\n");
-                printf("██║╚██╔╝██║██╔══╝░░██║╚██╔╝██║██║░░██║██╔══██╗░░╚██╔╝░░  ██╔══╝░░██╔══██╗██╔══╝░░██╔══╝░░██║░░██║\n");
-                printf("██║░╚═╝░██║███████╗██║░╚═╝░██║╚█████╔╝██║░░██║░░░██║░░░  ██║░░░░░██║░░██║███████╗███████╗██████╔╝\n");                    printf("╚═╝░░░░░╚═╝╚══════╝╚═╝░░░░░╚═╝░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░  ╚═╝░░░░░╚═╝░░╚═╝╚══════╝╚══════╝╚═════╝░\n");
-                return NULL;
+                return list;
             default:
                 printf(MAGENTA "system> " RESET WHITE "invalid input.\n");
                 break;

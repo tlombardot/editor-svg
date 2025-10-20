@@ -10,83 +10,83 @@ Data *interfacePath(Data *path) {
     ListNodePath *current = path->shape.path->list;
 
     while (answer != 0) {
+        printf(YELLOW"\n█▀█  ▄▀█  ▀█▀  █░█  █▄▄  █░█  █  █░░  █▀▄\n");
+        printf("█▀▀  █▀█  ░█░  █▀█  █▄█  █▄█  █  █▄▄  █▄▀\n\n");
         HeaderLine();
-        slowPrint(CYAN "PATH BUILDER\n" RESET, 1);
+        printf( YELLOW"\n(1)..............................Move (M)\n");
+        printf("(2)..............................Line (L)\n");
+        printf("(3)...................Horizontal Line (H)\n");
+        printf("(4).....................Vertical Line (V)\n");
+        printf("(5).............................Curve (C)\n");
+        printf("(6).......................Short Curve (S)\n");
+        printf("(7)...................Quadratic Curve (Q)\n");
+        printf("(8).............Short Quadratic Curve (T)\n");
+        printf("(9)........................Close Path (Z)\n");
+        printf(MAGENTA"(0).................Back to previous menu\n\n");
         HeaderLine();
-        slowPrint(WHITE " [1] Move (M)\n", 1);
-        slowPrint(" [2] Line (L)\n", 1);
-        slowPrint(" [3] Horizontal Line (H)\n", 1);
-        slowPrint(" [4] Vertical Line (V)\n", 1);
-        slowPrint(" [5] Curve (C)\n", 1);
-        slowPrint(" [6] Short Curve (S)\n", 1);
-        slowPrint(" [7] Quadratic Curve (Q)\n", 1);
-        slowPrint(" [8] Short Quadratic Curve (T)\n", 1);
-        slowPrint(" [9] Close Path (Z)\n", 1);
-        slowPrint(" [0] Back to previous menu\n", 1);
-        HeaderLine();
-        slowPrint(CYAN "INPUT> " RESET, 1);
+        printf(YELLOW"\nINPUT> "RESET);
 
-        answer = getInt();
+        answer = getInt(0,9);
 
         if (answer == 9) {
-            slowPrint(WHITE "\nPath closed successfully.\n" RESET, 2);
+            printf(WHITE "\nPath closed successfully.\n" RESET);
             break;
         }
 
         switch (answer) {
             case 1:
-                slowPrint(WHITE "\nMove command selected (M)\n" RESET, 2);
+                printf(WHITE "\nMove command selected (M)\n" RESET);
                 current = movePath(current);
                 path->shape.path->lenght++;
                 current = current->next;
                 break;
             case 2:
-                slowPrint(WHITE "\nLine command selected (L)\n" RESET, 2);
+                printf(WHITE "\nLine command selected (L)\n" RESET);
                 current = linePath(current);
                 path->shape.path->lenght++;
                 current = current->next;
                 break;
             case 3:
-                slowPrint(WHITE "\nHorizontal command selected (H)\n" RESET, 2);
+                printf(WHITE "\nHorizontal command selected (H)\n" RESET);
                 current = horizontalPath(current);
                 path->shape.path->lenght++;
                 current = current->next;
                 break;
             case 4:
-                slowPrint(WHITE "\nVertical command selected (V)\n" RESET, 2);
+                printf(WHITE "\nVertical command selected (V)\n" RESET);
                 current = verticalPath(current);
                 path->shape.path->lenght++;
                 current = current->next;
                 break;
             case 5:
-                slowPrint(WHITE "\nCurve command selected (C)\n" RESET, 2);
+                printf(WHITE "\nCurve command selected (C)\n" RESET);
                 current = curvePath(current);
                 path->shape.path->lenght++;
                 current = current->next;
                 break;
             case 6:
-                slowPrint(WHITE "\nShort Curve command selected (S)\n" RESET, 2);
+                printf(WHITE "\nShort Curve command selected (S)\n" RESET);
                 current = ShortCurvePath(current);
                 path->shape.path->lenght++;
                 current = current->next;
                 break;
             case 7:
-                slowPrint(WHITE "\nQuadratic Curve command selected (Q)\n" RESET, 2);
+                printf(WHITE "\nQuadratic Curve command selected (Q)\n" RESET);
                 current = QuadraticCurvePath(current);
                 path->shape.path->lenght++;
                 current = current->next;
                 break;
             case 8:
-                slowPrint(WHITE "\nShort Quadratic command selected (T)\n" RESET, 2);
+                printf(WHITE "\nShort Quadratic command selected (T)\n" RESET);
                 current = ShortQuadraticPath(current);
                 path->shape.path->lenght++;
                 current = current->next;
                 break;
             case 0:
-                slowPrint(WHITE "\nReturning to previous menu...\n" RESET, 2);
+                printf(WHITE "\nReturning to previous menu...\n" RESET);
                 break;
             default:
-                slowPrint(CYAN "ERROR> " RESET WHITE "Invalid choice! Please select 0–9.\n", 2);
+                printf(CYAN "ERROR> " RESET WHITE "Invalid choice! Please select 0–9.\n");
                 break;
         }
     }

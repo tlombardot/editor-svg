@@ -1,3 +1,0 @@
-/home/thomas/Documents/Coda/Projets/editor-svg/cmake-build-debug/CMakeFiles/editor_svg.dir
-/home/thomas/Documents/Coda/Projets/editor-svg/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/thomas/Documents/Coda/Projets/editor-svg/cmake-build-debug/CMakeFiles/rebuild_cache.dir

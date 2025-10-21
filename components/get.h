@@ -13,12 +13,12 @@ int getYCoord();
 int getWIDTHCoord();
 int getHEIGHTCoord();
 int getRange();
-void getShape(ListNodePoly *poly, ShapeType type, int index);
-void getPath(ListNodePath *path, int index);
+void getShape(ListPoly *poly, ShapeType type, int index);
+void getPath(ListPath *path, int index);
 char getChar();
 bool getBool();
 void getLine(Data *line, int index);
 char *getString();
-void getGroup(Group *group);
+void getGroup(Group *group, int depth);
 
 #endif

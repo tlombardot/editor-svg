@@ -185,6 +185,7 @@ List *userInterface() {
         system("clear");
         switch (answer) {
             case 1: createInterface(list); break;
+
             case 2:
                 int choice_edit;
                 if (list->lenght == 0) {

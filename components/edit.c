@@ -10,28 +10,60 @@ void editX(Data * data){
     switch (data->type) {
         case RECTANGLE:
             getRectangle(data, 0);
-            printf(BOLD CYAN"\nEnter the new X coordinate: \n");
+            printf(YELLOW"\nEnter the new X coordinate: \n");
             data->shape.rect.x = getInt(0,600);
             break;
         case CIRCLE:
             getCircle(data, 0);
-            printf(BOLD CYAN"\nEnter the new X coordinate: \n");
+            printf(YELLOW"\nEnter the new X coordinate: \n");
             data->shape.circle.cx = getInt(0,600);
             break;
         case ELLIPSE:
             getEllipse(data, 0);
-            printf(BOLD CYAN"\nEnter the new X coordinate: \n");
+            printf(YELLOW"\nEnter the new X coordinate: \n");
             data->shape.elli.cx = getInt(0,600);
             break;
         case LINE:
             getLine(data, 0);
-            printf(BOLD CYAN"\nEnter the new X coordinate: \n");
+            printf(YELLOW"\nEnter the new X coordinate: \n");
             data->shape.line.x1 = getInt(0,600);
             break;
         case SQUARE:
             getSquare(data, 0);
-            printf(BOLD CYAN"\nEnter the new X coordinate: \n");
+            printf(YELLOW"\nEnter the new X coordinate: \n");
             data->shape.squ.x = getInt(0,600);
+            break;
+        case POLYGONE:
+            getShape(data->shape.poly,POLYGONE, 0);
+            printf(YELLOW"What point do you want to change x coordinate (1-%d)? : ",data->shape.poly->lenght);
+            int choice_poly = getInt(1, data->shape.poly->lenght);
+            ListNodePoly *current_poly = data->shape.poly->list;
+            if (choice_poly == 0) {
+                printf(YELLOW"\nEnter the new X coordinate: \n");
+                current_poly->value->x = getInt(0,600);
+                break;
+            }
+            for (int i = 1; i < choice_poly; i++) {
+                current_poly = current_poly->next;
+            }
+            printf(YELLOW"\nEnter the new X coordinate: \n");
+            current_poly->value->x = getInt(0,600);
+            break;
+        case STRLINE:
+            getShape(data->shape.poly,STRLINE, 0);
+            printf(YELLOW"What point do you want to change x coordinate (1-%d)? : ",data->shape.poly->lenght);
+            int choice_strline = getInt(1, data->shape.poly->lenght);
+            ListNodePoly *current_str = data->shape.poly->list;
+            if (choice_strline == 0) {
+                printf(YELLOW"\nEnter the new X coordinate: \n");
+                current_str->value->x = getInt(0,600);
+                break;
+            }
+            for (int i = 1; i < choice_strline; i++) {
+                current_str = current_str->next;
+            }
+            printf(YELLOW"\nEnter the new X coordinate: \n");
+            current_str->value->x = getInt(0,600);
             break;
         default:
             printf("Invalid type");
@@ -43,27 +75,27 @@ void editY(Data * data){
     switch (data->type) {
         case RECTANGLE:
             getRectangle(data, 0);
-            printf(BOLD CYAN"\nEnter the new Y coordinate: \n");
+            printf(YELLOW"\nEnter the new Y coordinate: \n");
             data->shape.rect.y = getInt(0,300);
             break;
         case SQUARE:
             getSquare(data, 0);
-            printf(BOLD CYAN"\nEnter the new Y coordinate: \n");
+            printf(YELLOW"\nEnter the new Y coordinate: \n");
             data->shape.squ.y = getInt(0,300);
             break;
         case CIRCLE:
             getCircle(data, 0);
-            printf(BOLD CYAN"\nEnter the new Y coordinate: \n");
+            printf(YELLOW"\nEnter the new Y coordinate: \n");
             data->shape.circle.cy = getInt(0,300);
             break;
         case ELLIPSE:
             getEllipse(data, 0);
-            printf(BOLD CYAN"\nEnter the new Y coordinate: \n");
+            printf(YELLOW"\nEnter the new Y coordinate: \n");
             data->shape.elli.cy = getInt(0,300);
             break;
         case LINE:
             getLine(data, 0);
-            printf(BOLD CYAN"\nEnter the new Y coordinate: \n");
+            printf(YELLOW"\nEnter the new Y coordinate: \n");
             data->shape.line.y1 = getInt(0,300);
             break;
         default:
@@ -76,30 +108,33 @@ void editAngle(Data *data){
     switch (data->type) {
         case RECTANGLE:
             getRectangle(data, 0);
-            printf(BOLD CYAN"\nEnter the new angle: \n");
+            printf(YELLOW"\nEnter the new angle: \n");
             data->shape.rect.style.angle = getInt(0,360);
             break;
         case SQUARE:
             getSquare(data, 0);
-            printf(BOLD CYAN"\nEnter the new angle: \n");
+            printf(YELLOW"\nEnter the new angle: \n");
             data->shape.squ.style.angle = getInt(0,360);
             break;
         case CIRCLE:
             getCircle(data, 0);
-            printf(BOLD CYAN"\nEnter the new angle: \n");
+            printf(YELLOW"\nEnter the new angle: \n");
             data->shape.circle.style.angle = getInt(0,360);
             break;
         case ELLIPSE:
             getEllipse(data, 0);
-            printf(BOLD CYAN"\nEnter the new angle: \n");
+            printf(YELLOW"\nEnter the new angle: \n");
             data->shape.elli.style.angle = getInt(0,360);
             break;
         case LINE:
             getLine(data, 0);
-            printf(BOLD CYAN"\nEnter the new angle: \n");
+            printf(YELLOW"\nEnter the new angle: \n");
             data->shape.line.style.angle = getInt(0,360);
             break;
         case POLYGONE:
+            data->shape.poly->style.angle = getInt(0,360);
+            break;
+        case STRLINE:
             data->shape.poly->style.angle = getInt(0,360);
             break;
         default:
@@ -112,47 +147,47 @@ void editFill(Data *data){
     switch (data->type) {
         case RECTANGLE:
             getRectangle(data, 0);
-            printf(BOLD CYAN"Enter the new fill color: \n");
+            printf(YELLOW"Enter the new fill color: \n");
             data->shape.rect.style.RF = getInt(0,255);
             data->shape.rect.style.GF = getInt(0,255);
             data->shape.rect.style.BF = getInt(0,255);
             break;
         case SQUARE:
             getSquare(data, 0);
-            printf(BOLD CYAN"Enter the new fill color: \n");
+            printf(YELLOW"Enter the new fill color: \n");
             data->shape.squ.style.RF = getInt(0,255);
             data->shape.squ.style.GF = getInt(0,255);
             data->shape.squ.style.BF = getInt(0,255);
             break;
         case CIRCLE:
             getCircle(data, 0);
-            printf(BOLD CYAN"Enter the new fill color: \n");
+            printf(YELLOW"Enter the new fill color: \n");
             data->shape.circle.style.RF = getInt(0,255);
             data->shape.circle.style.GF = getInt(0,255);
             data->shape.circle.style.BF = getInt(0,255);
             break;
         case ELLIPSE:
             getEllipse(data, 0);
-            printf(BOLD CYAN"Enter the new fill color: \n");
+            printf(YELLOW"Enter the new fill color: \n");
             data->shape.elli.style.RF = getInt(0,255);
             data->shape.elli.style.GF = getInt(0,255);
             data->shape.elli.style.BF = getInt(0,255);
             break;
         case LINE:
             getLine(data, 0);
-            printf(BOLD CYAN"Enter the new fill color: \n");
+            printf(YELLOW"Enter the new fill color: \n");
             data->shape.line.style.RF = getInt(0,255);
             data->shape.line.style.GF = getInt(0,255);
             data->shape.line.style.BF = getInt(0,255);
             break;
         case POLYGONE:
-            printf(BOLD CYAN"Enter the new fill color: \n");
+            printf(YELLOW"Enter the new fill color: \n");
             data->shape.poly->style.RF = getInt(0,255);
             data->shape.poly->style.GF = getInt(0,255);
             data->shape.poly->style.BF = getInt(0,255);
             break;
         case STRLINE:
-            printf(BOLD CYAN"Enter the new fill color: \n");
+            printf(YELLOW"Enter the new fill color: \n");
             data->shape.poly->style.RF = getInt(0,255);
             data->shape.poly->style.GF = getInt(0,255);
             data->shape.poly->style.BF = getInt(0,255);
@@ -167,41 +202,47 @@ void editStroke(Data *data){
     switch (data->type) {
         case RECTANGLE:
             getRectangle(data, 0);
-            printf(BOLD CYAN"Enter the new stroke color: \n");
+            printf(YELLOW"Enter the new stroke color: \n");
             data->shape.rect.style.RS = getInt(0,255);
             data->shape.rect.style.GS = getInt(0,255);
             data->shape.rect.style.BS = getInt(0,255);
             break;
         case SQUARE:
             getSquare(data, 0);
-            printf(BOLD CYAN"Enter the new stroke color: \n");
+            printf(YELLOW"Enter the new stroke color: \n");
             data->shape.squ.style.RS = getInt(0,255);
             data->shape.squ.style.GS = getInt(0,255);
             data->shape.squ.style.BS = getInt(0,255);
             break;
         case CIRCLE:
             getCircle(data, 0);
-            printf(BOLD CYAN"Enter the new stroke color: \n");
+            printf(YELLOW"Enter the new stroke color: \n");
             data->shape.circle.style.RS = getInt(0,255);
             data->shape.circle.style.GS = getInt(0,255);
             data->shape.circle.style.BS = getInt(0,255);
             break;
         case ELLIPSE:
             getEllipse(data, 0);
-            printf(BOLD CYAN"Enter the new stroke color: \n");
+            printf(YELLOW"Enter the new stroke color: \n");
             data->shape.elli.style.RS = getInt(0,255);
             data->shape.elli.style.GS = getInt(0,255);
             data->shape.elli.style.BS = getInt(0,255);
             break;
         case LINE:
             getLine(data, 0);
-            printf(BOLD CYAN"Enter the new stroke color: \n");
+            printf(YELLOW"Enter the new stroke color: \n");
             data->shape.line.style.RS = getInt(0,255);
             data->shape.line.style.GS = getInt(0,255);
             data->shape.line.style.BS = getInt(0,255);
             break;
         case POLYGONE:
-            printf(BOLD CYAN"Enter the new stroke color: \n");
+            printf(YELLOW"Enter the new stroke color: \n");
+            data->shape.poly->style.RS = getInt(0,255);
+            data->shape.poly->style.GS = getInt(0,255);
+            data->shape.poly->style.BS = getInt(0,255);
+            break;
+        case STRLINE:
+            printf(YELLOW"Enter the new stroke color: \n");
             data->shape.poly->style.RS = getInt(0,255);
             data->shape.poly->style.GS = getInt(0,255);
             data->shape.poly->style.BS = getInt(0,255);
@@ -216,43 +257,49 @@ void editTranslate(Data *data){
     switch(data->type){
         case CIRCLE:
             getCircle(data, 0);
-            printf(BOLD CYAN"Enter the new x coordinate: ");
+            printf(YELLOW"Enter the new x coordinate: ");
             data->shape.circle.style.translate.x = getInt(0,200);
-            printf(BOLD CYAN"Enter the new y coordinate: ");
+            printf(YELLOW"Enter the new y coordinate: ");
             data->shape.circle.style.translate.y = getInt(0,100);
             break;
         case ELLIPSE:
             getEllipse(data, 0);
-            printf(BOLD CYAN"Enter the new x coordinate: ");
+            printf(YELLOW"Enter the new x coordinate: ");
             data->shape.elli.style.translate.x = getInt(0,200);
-            printf(BOLD CYAN"Enter the new y coordinate: ");
+            printf(YELLOW"Enter the new y coordinate: ");
             data->shape.elli.style.translate.y = getInt(0,100);
             break;
         case LINE:
             getLine(data, 0);
-            printf(BOLD CYAN"Enter the new x coordinate: ");
+            printf(YELLOW"Enter the new x coordinate: ");
             data->shape.line.style.translate.x = getInt(0,200);
-            printf(BOLD CYAN"Enter the new y coordinate: ");
+            printf(YELLOW"Enter the new y coordinate: ");
             data->shape.line.style.translate.y = getInt(0,100);
             break;
         case RECTANGLE:
             getRectangle(data, 0);
-            printf(BOLD CYAN"Enter the new x coordinate: ");
+            printf(YELLOW"Enter the new x coordinate: ");
             data->shape.rect.style.translate.x = getInt(0,200);
-            printf(BOLD CYAN"Enter the new y coordinate: ");
+            printf(YELLOW"Enter the new y coordinate: ");
             data->shape.rect.style.translate.y = getInt(0,100);
             break;
         case SQUARE:
             getSquare(data, 0);
-            printf(BOLD CYAN"Enter the new x coordinate: ");
+            printf(YELLOW"Enter the new x coordinate: ");
             data->shape.squ.style.translate.x = getInt(0,200);
-            printf(BOLD CYAN"Enter the new y coordinate: ");
+            printf(YELLOW"Enter the new y coordinate: ");
             data->shape.squ.style.translate.y = getInt(0,100);
             break;
         case POLYGONE:
-            printf(BOLD CYAN"Enter the new x coordinate: ");
+            printf(YELLOW"Enter the new x coordinate: ");
             data->shape.poly->style.translate.x = getInt(0,200);
-            printf(BOLD CYAN"Enter the new y coordinate: ");
+            printf(YELLOW"Enter the new y coordinate: ");
+            data->shape.poly->style.translate.y = getInt(0,100);
+            break;
+        case STRLINE:
+            printf(YELLOW"Enter the new x coordinate: ");
+            data->shape.poly->style.translate.x = getInt(0,200);
+            printf(YELLOW"Enter the new y coordinate: ");
             data->shape.poly->style.translate.y = getInt(0,100);
             break;
         default:

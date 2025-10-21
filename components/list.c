@@ -75,21 +75,20 @@ void getList(List *list)
         getEllipse(current->data, i);
         break;
     case POLYGONE:
-        ListNodePoly *currentPoly = current->data->shape.poly->list;
+        ListPoly *currentPoly = current->data->shape.poly;
         getShape(currentPoly,current->data->type, i);
         break;
     case STRLINE:
-        ListNodePoly *currentLineStr = current->data->shape.poly->list;
+        ListPoly *currentLineStr = current->data->shape.poly;
         getShape(currentLineStr,current->data->type, i);
         break;
     case PATH:
-        ListNodePath *currentPath = current->data->shape.path->list;
+        ListPath *currentPath = current->data->shape.path;
         getPath(currentPath, i);
         break;
     case GROUP :
-
             Group *group = current->data->shape.group;
-            getGroup(group);
+            getGroup(group, group->depth);
         break;
     default:
         printf("Unknown shape type\n");

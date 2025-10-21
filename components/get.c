@@ -68,12 +68,15 @@ void getLine(Data *line, int index) {
     HeaderLine();
 }
 
-void getShape(ListNodePoly *poly, ShapeType type, int index) {
+void getShape(ListPoly *poly, ShapeType type, int index) {
     if(type == POLYGONE) printf(BOLD MAGENTA "▲ POLYGON POINTS #%d\n" RESET, index);
     else if(type == STRLINE) printf(BOLD MAGENTA "─ POLYLINE POINTS #%d\n" RESET, index);
-
+    printf(BOLD WHITE " Fill: " RESET "%d/%d/%d  " BOLD WHITE "Stroke: " RESET "%d/%d/%d  " BOLD WHITE "Angle: " RESET "%d°\n",
+        poly->style.RF, poly->style.GF, poly->style.BF,
+        poly->style.RS, poly->style.GS, poly->style.BS,
+        poly->style.angle);
     int i = 1;
-    ListNodePoly *current = poly;
+    ListNodePoly *current = poly->list;
     while(current) {
         printf(BOLD WHITE " Point #%d: " RESET "(x=%d, y=%d)\n", i, current->value->x, current->value->y);
         current = current->next; i++;
@@ -81,9 +84,13 @@ void getShape(ListNodePoly *poly, ShapeType type, int index) {
     HeaderLine();
 }
 
-void getPath(ListNodePath *path, int index) {
+void getPath(ListPath *path, int index) {
     printf( YELLOW "✦ PATH COMMANDS #%d\n" RESET, index);
-    ListNodePath *cur = path;
+    printf(BOLD WHITE " Fill: " RESET "%d/%d/%d  " BOLD WHITE "Stroke: " RESET "%d/%d/%d  " BOLD WHITE "Angle: " RESET "%d°\n",
+        path->style.RF, path->style.GF, path->style.BF,
+        path->style.RS, path->style.GS, path->style.BS,
+        path->style.angle);
+    ListNodePath *cur = path->list;
     while(cur) {
         char c = cur->path->orderType;
         switch(c) {
@@ -110,9 +117,13 @@ void getPath(ListNodePath *path, int index) {
     HeaderLine();
 }
 
-void getGroup(Group *group) {
+void getGroup(Group *group, int depth) {
+    for (int i = 0; i < depth; i++) {
+        printf("\t");
+    }
     printf("Group\n");
     HeaderLine();
+    group->depth ++;
     getList(group->grouplist);
 }
 

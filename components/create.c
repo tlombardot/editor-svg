@@ -111,6 +111,10 @@ Data *createShapeless(ShapeType type) {
       new_poly->shape.poly->lenght++;
       }
   }
+    new_poly->shape.poly->style = createStrokeStyle(&new_poly->shape.poly->style);
+    new_poly->shape.poly->style = createFillStyle(&new_poly->shape.poly->style);
+    new_poly->shape.poly->style = createAngleStyle(&new_poly->shape.poly->style);
+    new_poly->shape.poly->style.translate = createTranslateStyle(&new_poly->shape.poly->style);
   new_poly->type = type;
   return new_poly;
 }
@@ -130,6 +134,10 @@ Data *createPath(){
     Data* new_path = allocateMemoryPath();
     new_path->shape.path->list->path->order.mv.x = getXCoord();
     new_path->shape.path->list->path->order.mv.y = getYCoord();
+    new_path->shape.path->style = createStrokeStyle(&new_path->shape.path->style);
+    new_path->shape.path->style = createFillStyle(&new_path->shape.path->style);
+    new_path->shape.path->style = createAngleStyle(&new_path->shape.path->style);
+    new_path->shape.path->style.translate = createTranslateStyle(&new_path->shape.path->style);
     new_path->shape.path->list->path->orderType = 'M';
     new_path->shape.path->lenght = 0;
     new_path->type = PATH;

@@ -2,12 +2,14 @@
 *.d
 cmake-build-debug/
 .idea/
+*.svg
 
 # Object files
 *.o
 *.ko
 *.obj
 *.elf
+CMakeLists.txt
 
 # Linker output
 *.ilk

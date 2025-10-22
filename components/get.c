@@ -91,7 +91,11 @@ void getPath(ListPath *path, int index) {
         path->style.RS, path->style.GS, path->style.BS,
         path->style.angle);
     ListNodePath *cur = path->list;
-    while(cur) {
+    while (cur) {
+        if (cur->path == NULL) {
+            cur = cur->next;
+            continue;
+        }
         char c = cur->path->orderType;
         switch(c) {
             case 'M': printf("M %d %d  ", cur->path->order.mv.x, cur->path->order.mv.y); break;

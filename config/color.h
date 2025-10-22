@@ -1,28 +1,25 @@
-
 #ifndef COLORS_H
 #define COLORS_H
 
-/* Reset – revient aux attributs par défaut du terminal */
+/* Reset – returns terminal text to default attributes */
 #define RESET          "\033[0m"
 
 /* ---------------------------  FOREGROUND  --------------------------- */
 
-/* Couleurs primaires (adoucies) */
+/* Primary (soft) colors */
 #define RED            "\033[38;2;230;60;60m"
 #define GREEN          "\033[38;2;0;200;100m"
-#define BLUE           "\033[38;2;50;120;255m"      // Bleu acier : lisible et élégant
-
-/* Nuances secondaires (désaturées pour plus de confort) */
+#define BLUE           "\033[38;2;50;120;255m"
 #define YELLOW         "\033[38;2;255;220;70m"
-#define CYAN           "\033[38;2;80;220;255m"      // Bleu-ciel doux
+#define CYAN           "\033[38;2;80;220;255m"
 #define MAGENTA        "\033[38;2;220;80;220m"
 
-/* Blanc & noir */
+/* White & Black */
 #define WHITE          "\033[38;2;230;230;230m"
 #define BLACK          "\033[38;2;0;0;0m"
 
-/* Nuances supplémentaires */
-#define ORANGE         "\033[38;2;255;165;60m"      // Orange clair, moins agressif
+/* Additional shades */
+#define ORANGE         "\033[38;2;255;165;60m"
 #define PURPLE         "\033[38;2;140;90;255m"
 #define BROWN          "\033[38;2;150;90;40m"
 #define GRAY           "\033[38;2;140;140;140m"
@@ -39,7 +36,6 @@
 #define MAROON         "\033[38;2;120;0;0m"
 #define LIME           "\033[38;2;180;255;100m"
 #define INDIGO         "\033[38;2;75;90;180m"
-
 
 /* ---------------------------  BACKGROUND  --------------------------- */
 
@@ -69,6 +65,8 @@
 #define BG_LIME        "\033[48;2;191;254;0m"
 #define BG_INDIGO      "\033[48;2;75;0;130m"
 
+/* ---------------------------  TEXT STYLES  --------------------------- */
+
 #define BOLD           "\033[1m"
 #define DIM            "\033[2m"
 #define ITALIC         "\033[3m"
@@ -78,4 +76,4 @@
 #define HIDDEN         "\033[8m"
 #define STRIKETHROUGH  "\033[9m"
 
-#endif
+#endif /* COLORS_H */

@@ -1,111 +1,172 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
-typedef enum
-{
-    CIRCLE,
-    RECTANGLE,
-    ELLIPSE,
-    SQUARE,
-    LINE,
-    POLYGONE,
-    GROUP,
-    PATH,
-    STRLINE,
-
-} ShapeType;
-
-
-typedef struct Translate{
-    int x,y;
-} Translate;
-
-typedef struct Style{
-    int RS,GS,BS;
-    int RF,GF,BF;
-    int angle;
-    Translate translate;
-} Style;
-
-typedef struct
-{
-    int x, y, width, height;
-    Style style;
-} Rectangle;
-
-typedef struct
-{
-    int cx, cy;
-    unsigned int r;
-    Style style;
-
-} Circle;
-
-typedef struct
-{
-    int x1, y1, x2, y2;
-    Style style;
-
-} Line;
-
-typedef struct
-{
-    int x, y, wh;
-    Style style;
-
-} Square;
-
-typedef struct
-{
-    int cx, cy, rx, ry;
-    Style style;
-
-} Ellipse;
-
-
-/*
- * Path Struct
+/**
+ * @file struct.h
+ * @brief Core data structures for SVG shape representation and management.
+ *
+ * This header defines all data types used throughout the SVG editing system,
+ * including geometric primitives, styling options, shape containers,
+ * lists, and grouping mechanisms.
  */
 
- typedef struct Move{
-     int x,y;
- } Move;
+/* -------------------------------------------------------------------------- */
+/*                                 ENUM TYPES                                 */
+/* -------------------------------------------------------------------------- */
 
- typedef struct LinePath{
-     int x,y;
- } LinePath;
-
- typedef struct Horizontal{
-     int x;
- } Horizontal;
-
- typedef struct Vertical{
-     int y;
- } Vertical;
-
- typedef struct Curve{
-     int x1, y1, x2, y2, x3, y3;
-
- } Curve;
-
- typedef struct ShortCurve{
-     int x1, y1, x2, y2;
-
- } ShortCurve;
-
- typedef struct QuadraticCurve {
-     int x1, y1, x2, y2;
-
- } QuadraticCurve;
-
- typedef struct ShortQuadratic{
-     int x,y;
-
- } ShortQuadratic;
-
-
-typedef union Order
+/**
+ * @brief Enumeration of all supported SVG shape types.
+ */
+typedef enum
 {
+    CIRCLE,     /**< Circle shape */
+    RECTANGLE,  /**< Rectangle shape */
+    ELLIPSE,    /**< Ellipse shape */
+    SQUARE,     /**< Square shape */
+    LINE,       /**< Line shape */
+    POLYGONE,   /**< Polygon shape */
+    GROUP,      /**< Group container */
+    PATH,       /**< SVG Path shape */
+    STRLINE     /**< Polyline shape */
+} ShapeType;
+
+/* -------------------------------------------------------------------------- */
+/*                                STYLE STRUCTS                               */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * @brief Translation transformation for shapes.
+ */
+typedef struct Translate {
+    int x;  /**< Horizontal translation */
+    int y;  /**< Vertical translation */
+} Translate;
+
+/**
+ * @brief Styling information for SVG shapes.
+ *
+ * Includes fill and stroke colors, rotation angle, and translation data.
+ */
+typedef struct Style {
+    int RS, GS, BS;  /**< Stroke color (RGB) */
+    int RF, GF, BF;  /**< Fill color (RGB) */
+    int angle;       /**< Rotation angle in degrees */
+    Translate translate; /**< Translation transformation */
+} Style;
+
+/* -------------------------------------------------------------------------- */
+/*                                SHAPE TYPES                                 */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * @brief Rectangle shape data.
+ */
+typedef struct {
+    int x, y;          /**< Top-left corner coordinates */
+    int width, height; /**< Dimensions */
+    Style style;       /**< Styling information */
+} Rectangle;
+
+/**
+ * @brief Circle shape data.
+ */
+typedef struct {
+    int cx, cy;        /**< Center coordinates */
+    unsigned int r;    /**< Radius */
+    Style style;       /**< Styling information */
+} Circle;
+
+/**
+ * @brief Line shape data.
+ */
+typedef struct {
+    int x1, y1;        /**< Start point coordinates */
+    int x2, y2;        /**< End point coordinates */
+    Style style;       /**< Styling information */
+} Line;
+
+/**
+ * @brief Square shape data.
+ */
+typedef struct {
+    int x, y;          /**< Top-left corner coordinates */
+    int wh;            /**< Width and height (equal for square) */
+    Style style;       /**< Styling information */
+} Square;
+
+/**
+ * @brief Ellipse shape data.
+ */
+typedef struct {
+    int cx, cy;        /**< Center coordinates */
+    int rx, ry;        /**< Radii (horizontal and vertical) */
+    Style style;       /**< Styling information */
+} Ellipse;
+
+/* -------------------------------------------------------------------------- */
+/*                                  PATH DATA                                 */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * @brief Move command (M) for SVG path.
+ */
+typedef struct Move {
+    int x, y;
+} Move;
+
+/**
+ * @brief Line command (L) for SVG path.
+ */
+typedef struct LinePath {
+    int x, y;
+} LinePath;
+
+/**
+ * @brief Horizontal line command (H) for SVG path.
+ */
+typedef struct Horizontal {
+    int x;
+} Horizontal;
+
+/**
+ * @brief Vertical line command (V) for SVG path.
+ */
+typedef struct Vertical {
+    int y;
+} Vertical;
+
+/**
+ * @brief Cubic Bezier curve (C) for SVG path.
+ */
+typedef struct Curve {
+    int x1, y1, x2, y2, x3, y3;
+} Curve;
+
+/**
+ * @brief Smooth cubic Bezier curve (S) for SVG path.
+ */
+typedef struct ShortCurve {
+    int x1, y1, x2, y2;
+} ShortCurve;
+
+/**
+ * @brief Quadratic Bezier curve (Q) for SVG path.
+ */
+typedef struct QuadraticCurve {
+    int x1, y1, x2, y2;
+} QuadraticCurve;
+
+/**
+ * @brief Smooth quadratic Bezier curve (T) for SVG path.
+ */
+typedef struct ShortQuadratic {
+    int x, y;
+} ShortQuadratic;
+
+/**
+ * @brief Union representing a generic path command.
+ */
+typedef union Order {
     Move mv;
     LinePath lp;
     Horizontal h;
@@ -114,65 +175,74 @@ typedef union Order
     ShortCurve sc;
     QuadraticCurve qc;
     ShortQuadratic sq;
-
 } Order;
 
-typedef struct Path{
-    Order order;
-    char orderType;
+/**
+ * @brief Represents a single SVG path element (command and parameters).
+ */
+typedef struct Path {
+    Order order;     /**< Command data */
+    char orderType;  /**< Command letter (e.g., 'M', 'L', 'C', etc.) */
 } Path;
 
-typedef struct ListNodePath
-{
-    Path *path;
-    struct ListNodePath *next;
-    struct ListNodePath *previous;
-
+/**
+ * @brief Linked list node for path commands.
+ */
+typedef struct ListNodePath {
+    Path *path;                  /**< Pointer to path command */
+    struct ListNodePath *next;   /**< Next node in the list */
+    struct ListNodePath *previous; /**< Previous node in the list */
 } ListNodePath;
 
-typedef struct ListPath
-{
-    ListNodePath *list;
-    int lenght;
-    Style style;
-
+/**
+ * @brief Linked list container for SVG path data.
+ */
+typedef struct ListPath {
+    ListNodePath *list;  /**< Head of path node list */
+    int lenght;          /**< Number of path commands */
+    Style style;         /**< Path styling */
 } ListPath;
 
-/*
- * Polygon Struct
+/* -------------------------------------------------------------------------- */
+/*                               POLYGON DATA                                 */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * @brief Polygon point coordinates.
  */
-
-typedef struct
-{
-    int x;
-    int y;
-
+typedef struct {
+    int x; /**< X coordinate */
+    int y; /**< Y coordinate */
 } Polygone;
 
-typedef struct ListNodePoly
-{
-    Polygone *value;
-    struct ListNodePoly *next;
-    struct ListNodePoly *previous;
+/**
+ * @brief Linked list node for polygon or polyline points.
+ */
+typedef struct ListNodePoly {
+    Polygone *value;            /**< Pointer to polygon vertex */
+    struct ListNodePoly *next;  /**< Next node */
+    struct ListNodePoly *previous; /**< Previous node */
+} ListNodePoly;
 
-}ListNodePoly;
+/**
+ * @brief Linked list container for polygon or polyline data.
+ */
+typedef struct ListPoly {
+    ListNodePoly *list;  /**< Head of polygon node list */
+    int lenght;          /**< Number of points */
+    Style style;         /**< Shape styling */
+} ListPoly;
 
-typedef struct ListPoly
-{
-    ListNodePoly *list;
-    int lenght;
-    Style style;
-
-}ListPoly;
+/* -------------------------------------------------------------------------- */
+/*                               GROUPING DATA                                */
+/* -------------------------------------------------------------------------- */
 
 typedef struct Group Group;
 
-/*
- * Main Struct
+/**
+ * @brief Union representing any supported shape type.
  */
-
-typedef union Shape
-{
+typedef union Shape {
     Rectangle rect;
     Circle circle;
     Line line;
@@ -181,43 +251,43 @@ typedef union Shape
     ListPoly *poly;
     ListPath *path;
     Group *group;
-
 } Shape;
 
-typedef struct {
-    ShapeType type;
-    Shape shape;
-}Data;
-
-
-
-/*
- * List ongoing create shape in order
+/**
+ * @brief Container for any SVG shape, including its type and data.
  */
-typedef struct ListNode
-{
-    Data *data;
-    struct ListNode *next;
-    struct ListNode *previous;
+typedef struct {
+    ShapeType type; /**< Shape category */
+    Shape shape;    /**< Shape data */
+} Data;
 
+/* -------------------------------------------------------------------------- */
+/*                               LIST MANAGEMENT                              */
+/* -------------------------------------------------------------------------- */
 
+/**
+ * @brief Node in the linked list of created shapes.
+ */
+typedef struct ListNode {
+    Data *data;               /**< Pointer to shape data */
+    struct ListNode *next;    /**< Next node in the list */
+    struct ListNode *previous;/**< Previous node in the list */
 } ListNode;
 
-typedef struct
-{
-    ListNode *form;
-    int lenght;
-
+/**
+ * @brief Linked list container for all shapes.
+ */
+typedef struct {
+    ListNode *form; /**< Head of shape node list */
+    int lenght;     /**< Number of shapes in the list */
 } List;
 
-/*
- * Group type form
+/**
+ * @brief Group container for nested shapes.
  */
+struct Group {
+    List *grouplist; /**< List of shapes inside the group */
+    int depth;       /**< Nesting level of the group */
+};
 
- struct Group{
-     List *grouplist;
-     int depth;
- };
-
-
-#endif
+#endif /* STRUCT_H */

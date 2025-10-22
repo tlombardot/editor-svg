@@ -14,6 +14,8 @@ List *createList(void)
     List *ListShape = malloc(sizeof(List));
     ListShape->form = malloc(sizeof(ListNode));
     ListShape->form->data = malloc(sizeof(Data));
+    ListShape->form->next = NULL;
+    ListShape->form->previous = NULL;
     ListShape->lenght = 0;
     return ListShape;
 }
@@ -26,6 +28,8 @@ List *appendList(List *list, Data *data)
     if (list->lenght == 0)
     {
         list->form->data = data;
+        list->form->next = NULL;
+        list->form->previous = NULL;
         list->lenght++;
         return list;
     }

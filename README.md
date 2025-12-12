@@ -1,5 +1,12 @@
 # SVG Editor (C Terminal Project)
 
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=tlombardot_editor-svg&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=tlombardot_editor-svg)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=tlombardot_editor-svg&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=tlombardot_editor-svg)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=tlombardot_editor-svg&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=tlombardot_editor-svg)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=tlombardot_editor-svg&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=tlombardot_editor-svg)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=tlombardot_editor-svg&metric=bugs)](https://sonarcloud.io/summary/new_code?id=tlombardot_editor-svg)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=tlombardot_editor-svg&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=tlombardot_editor-svg)
+
 ## Description
 
 **SVG Editor** is a **C terminal application** that allows you to **create, edit, delete, import, and export** SVG shapes directly from your terminal.  
